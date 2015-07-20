@@ -61,20 +61,6 @@
                                 <color key="barTintColor" red="0.59473642676767668" green="0.0" blue="0.59455436379659143" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="S E X" id="YcV-wa-8TO">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="yrg-AE-nUX">
-                                            <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="IOE-lG-uCd">
-                                                <rect key="frame" x="0.0" y="-30" width="71" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="joinChat:" destination="9pv-A4-QxB" eventType="editingDidEnd" id="1WF-e7-jtp"/>
-                                                </connections>
-                                            </textField>
-                                            <connections>
-                                                <action selector="inputNameField:" destination="9pv-A4-QxB" id="bDH-Mg-jKc"/>
-                                            </connections>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="pa2-WF-uWn">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NB7-2t-6pA">
                                                 <rect key="frame" x="-23" y="-15" width="71" height="30"/>
@@ -119,13 +105,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="MsgTableView" destination="vUx-SS-eqV" id="lbS-Gg-lS5"/>
-                        <outlet property="NameTextFild" destination="IOE-lG-uCd" id="sdE-Jp-VLf"/>
                         <outlet property="segControl" destination="JEX-3k-7Tm" id="JR1-3X-X0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="767" y="-348"/>
+            <point key="canvasLocation" x="688" y="-197"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
