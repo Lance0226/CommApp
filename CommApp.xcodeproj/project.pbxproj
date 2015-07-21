@@ -498,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xie Chengxiang (ZH93S8L7H3)";
 				HEADER_SEARCH_PATHS = (
 					"<Multiple",
 					"values>",
@@ -528,6 +529,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xie Chengxiang (ZH93S8L7H3)";
 				HEADER_SEARCH_PATHS = (
 					"<Multiple",
 					"values>",

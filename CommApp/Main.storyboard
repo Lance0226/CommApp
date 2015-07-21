@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Four-->
@@ -21,14 +21,14 @@
                                 <rect key="frame" x="81" y="263" width="162" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PW-4q-1zt">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="d7M-L2-Q24"/>
+                                    <navigationItem title="勾  勾" id="d7M-L2-Q24"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -41,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rEJ-99-akc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-999"/>
+            <point key="canvasLocation" x="656" y="-1093"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="hNz-n2-bh7">
@@ -60,7 +60,7 @@
                                 <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="0.59473642676767668" green="0.0" blue="0.59455436379659143" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="YcV-wa-8TO">
+                                    <navigationItem title="勾  勾" id="YcV-wa-8TO">
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="pa2-WF-uWn">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NB7-2t-6pA">
                                                 <rect key="frame" x="-23" y="-15" width="71" height="30"/>
@@ -128,20 +128,20 @@
                                 <rect key="frame" x="56" y="264" width="210" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
                                 <rect key="frame" x="53" y="314" width="216" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ga4-HE-WOQ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="76F-AA-Phh"/>
+                                    <navigationItem title="勾  勾" id="76F-AA-Phh"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -178,14 +178,14 @@
                                 <rect key="frame" x="69" y="263" width="156" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="awY-Ru-hLF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="ywV-SO-cOB"/>
+                                    <navigationItem title="勾  勾" id="ywV-SO-cOB"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -214,7 +214,7 @@
                         <color key="selectedImageTintColor" red="0.036195275915638994" green="0.03614935088869254" blue="0.036951546717171713" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <outlet property="tabBarView" destination="W28-zg-YXA" id="1vx-9w-x7n"/>
+                        <outlet property="m_tabBarView" destination="W28-zg-YXA" id="w8b-th-jzn"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="lT9-XF-IRl" kind="relationship" relationship="viewControllers" id="8Rp-l3-Ibj"/>
