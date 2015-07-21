@@ -19,7 +19,10 @@
 @synthesize m_popupView=_m_popupView;
 
 @synthesize m_centerBtn;  //Plus Button
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 @synthesize m_isPopupViewDisplay;
 
 - (void)viewDidLoad {
@@ -46,6 +49,7 @@
 
 -(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage *)btnImage HighlightedImage:(UIImage *)hlImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
 {
+<<<<<<< HEAD
     UIButton* popupBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     popupBtn.autoresizesSubviews=UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     
@@ -59,6 +63,19 @@
     [popupBtn setTag:tag];
     
     [self.view addSubview:popupBtn];
+=======
+    UIButton* onpopupBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    CGFloat gouyigouRatio=btnImage.size.width/btnImage.size.height;
+    onpopupBtn.bounds=CGRectMake(0.0f,0.0f,popupView.frame.size.height*gouyigouRatio,popupView.frame.size.height);
+    [onpopupBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
+    [onpopupBtn setBackgroundImage:hlImage forState:UIControlStateHighlighted];
+    [onpopupBtn addTarget:self action:@selector(buttonOnPopupView:) forControlEvents:UIControlEventTouchUpInside];
+    onpopupBtn.center=CGPointMake(popupView.center.x+center.x, popupView.center.y+center.y);
+    onpopupBtn.layer.zPosition=2;
+    [onpopupBtn setTag:tag];
+    
+    [self.view addSubview:onpopupBtn];
+>>>>>>> origin/master
 }
 
 - (void)addCenterButtonWithImage:(UIImage *)buttonImage highlightImage:(UIImage *)highlightImage target:(id)target action:(SEL)action
@@ -84,6 +101,10 @@
     button.layer.zPosition=1; //Make add button on the above layer
     
     [self.view addSubview:button];
+<<<<<<< HEAD
+=======
+    self.m_centerBtn = button;
+>>>>>>> origin/master
 }
 
 
@@ -103,6 +124,7 @@
     
 }
 
+<<<<<<< HEAD
 -(void)buttonOnPopupView:(UIButton *)btn
 {
     switch (btn.tag) {
@@ -110,6 +132,11 @@
         case 222:NSLog(@"piaoliuping");break;   //when tag is 222,the click button is piao liu ping.
         default:break;
     }
+=======
+-(void)buttonOnPopupView:(UIButton *)sender
+{
+    NSLog(@"ADFD");
+>>>>>>> origin/master
 }
 
 
@@ -117,13 +144,17 @@
 {
     self.m_popupView=[[UIView alloc]initWithFrame:CGRectMake(0, self.tabBar.center.y-self.tabBar.bounds.size.height-10.0f,[[UIScreen mainScreen]bounds].size.width, 35.0f)];
     self.m_popupView.backgroundColor=[UIColor colorWithRed:42.0/255 green:0.0/255 blue:48.0/255 alpha:1];
+<<<<<<< HEAD
     [self.view addSubview:self.m_popupView];
+=======
+>>>>>>> origin/master
  
     [self addBtnOnPopupWindowWithTag:111 NormalImage:[UIImage imageNamed:@"gouyigou.png"] HighlightedImage:[UIImage imageNamed:@"gouyigou_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(-80.0f, 0.0f)];
     
     [self addBtnOnPopupWindowWithTag:222 NormalImage:[UIImage imageNamed:@"piaoliuping.png"] HighlightedImage:[UIImage imageNamed:@"piaoliuping_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(80.0f,0.0f)];
     
     
+<<<<<<< HEAD
     
 }
 
@@ -135,8 +166,20 @@
     UIButton *piaoliupingBtn=(UIButton *)[self.view viewWithTag:222];
     [gouyigouBtn removeFromSuperview];
     [piaoliupingBtn removeFromSuperview];
+=======
+    [self.view addSubview:self.m_popupView];
+>>>>>>> origin/master
 }
 
+-(void)closePopupWindow
+{
+    [self.m_popupView removeFromSuperview];
+    [self.m_popupView release];
+    UIButton *gouyigouBtn=(UIButton *)[self.view viewWithTag:111];
+    UIButton *piaoliupingBtn=(UIButton *)[self.view viewWithTag:222];
+    [gouyigouBtn removeFromSuperview];
+    [piaoliupingBtn removeFromSuperview];
+}
 
 -(void)displayInputFiled
 {
