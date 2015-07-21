@@ -43,19 +43,19 @@
     self.tabBar.tintColor=[UIColor blackColor];
 }
 
--(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage *)btnImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
+-(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage *)btnImage HighlightedImage:(UIImage *)hlImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
 {
     UIButton* onpopupBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     CGFloat gouyigouRatio=btnImage.size.width/btnImage.size.height;
-    onpopupBtn.frame=CGRectMake(0.0f,0.0f,popupView.frame.size.height*gouyigouRatio,popupView.frame.size.height);
+    onpopupBtn.bounds=CGRectMake(0.0f,0.0f,popupView.frame.size.height*gouyigouRatio,popupView.frame.size.height);
     [onpopupBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
-    [onpopupBtn setBackgroundImage:btnImage forState:UIControlStateHighlighted];
+    [onpopupBtn setBackgroundImage:hlImage forState:UIControlStateHighlighted];
+    [onpopupBtn addTarget:self action:@selector(buttonOnPopupView:) forControlEvents:UIControlEventTouchUpInside];
     onpopupBtn.center=CGPointMake(popupView.center.x+center.x, popupView.center.y+center.y);
     onpopupBtn.layer.zPosition=2;
-    
     [onpopupBtn setTag:tag];
-    [self.view addSubview:onpopupBtn];
     
+    [self.view addSubview:onpopupBtn];
 }
 
 - (void)addCenterButtonWithImage:(UIImage *)buttonImage highlightImage:(UIImage *)highlightImage target:(id)target action:(SEL)action
@@ -84,9 +84,9 @@
     self.m_centerBtn = button;
 }
 
+
 - (void)buttonPressed:(id)sender
 {
-    NSLog(@"pressed");
     if (self.m_isPopupViewDisplay==false)
     {
         [self showPopupWindow];
@@ -101,13 +101,20 @@
     
 }
 
+-(void)buttonOnPopupView:(UIButton *)sender
+{
+    NSLog(@"ADFD");
+}
+
 
 -(void)showPopupWindow
 {
     self.m_popupView=[[UIView alloc]initWithFrame:CGRectMake(0, self.tabBar.center.y-self.tabBar.bounds.size.height-10.0f,[[UIScreen mainScreen]bounds].size.width, 35.0f)];
     self.m_popupView.backgroundColor=[UIColor colorWithRed:42.0/255 green:0.0/255 blue:48.0/255 alpha:1];
-    [self addBtnOnPopupWindowWithTag:111 NormalImage:[UIImage imageNamed:@"gouyigou.png"] PopupView:self.m_popupView andCenter:CGPointMake(-80.0f, 0.0f)]; //Add Gou Yi Gou Button
-    [self addBtnOnPopupWindowWithTag:222 NormalImage:[UIImage imageNamed:@"piaoliuping.png"] PopupView:self.m_popupView andCenter:CGPointMake(80.0f,0.0f)];
+ 
+    [self addBtnOnPopupWindowWithTag:111 NormalImage:[UIImage imageNamed:@"gouyigou.png"] HighlightedImage:[UIImage imageNamed:@"gouyigou_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(-80.0f, 0.0f)];
+    
+    [self addBtnOnPopupWindowWithTag:222 NormalImage:[UIImage imageNamed:@"piaoliuping.png"] HighlightedImage:[UIImage imageNamed:@"piaoliuping_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(80.0f,0.0f)];
     
     
     [self.view addSubview:self.m_popupView];
@@ -122,8 +129,6 @@
     [gouyigouBtn removeFromSuperview];
     [piaoliupingBtn removeFromSuperview];
 }
-
-
 
 
 - (void)dealloc {

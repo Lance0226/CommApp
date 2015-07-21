@@ -21,6 +21,7 @@
 -(void)buttonPressed:(id)sender;
 -(void)changeTabBarView;
 -(void)closePopupWindow;
--(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage*)btnImage PopupView:(UIView * )popupView andCenter:(CGPoint )center;
+-(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage*)btnImage HighlightedImage:(UIImage*)hlImage PopupView:(UIView * )popupView andCenter:(CGPoint )center;
+-(void)buttonOnPopupView:(UIButton *)sender;
 
 @end

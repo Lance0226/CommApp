@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -27,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="d7M-L2-Q24"/>
+                                    <navigationItem title="勾  勾" id="d7M-L2-Q24"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -40,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rEJ-99-akc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-999"/>
+            <point key="canvasLocation" x="656" y="-1093"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="hNz-n2-bh7">
@@ -59,7 +60,7 @@
                                 <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="0.59473642676767668" green="0.0" blue="0.59455436379659143" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="YcV-wa-8TO">
+                                    <navigationItem title="勾  勾" id="YcV-wa-8TO">
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="pa2-WF-uWn">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NB7-2t-6pA">
                                                 <rect key="frame" x="-23" y="-15" width="71" height="30"/>
@@ -140,7 +141,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="76F-AA-Phh"/>
+                                    <navigationItem title="勾  勾" id="76F-AA-Phh"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -184,7 +185,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="barTintColor" red="0.59473642680000005" green="0.0" blue="0.59455436380000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <navigationItem title="S E X" id="ywV-SO-cOB"/>
+                                    <navigationItem title="勾  勾" id="ywV-SO-cOB"/>
                                 </items>
                             </navigationBar>
                         </subviews>
