@@ -10,33 +10,29 @@
 
 @interface TabBarController : UITabBarController
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 @property (nonatomic, strong) IBOutlet UIButton  *m_centerBtn; //Add button
-=======
+*/
 @property (nonatomic, strong) IBOutlet UIButton  *m_centerBtn;
->>>>>>> origin/master
 //The View that contains gouyigou and piaoliuping is displayed or not.
 @property (nonatomic)        bool                 m_isPopupViewDisplay;
 @property (nonatomic,strong) UIView              *m_popupView;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
+
 -(void)initialize;//Properties initialize.
 -(void)buttonPressed:(id)sender;
 -(void)changeTabBarView;
 -(void)closePopupWindow;
 -(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage*)btnImage HighlightedImage:(UIImage*)hlImage PopupView:(UIView * )popupView andCenter:(CGPoint )center;
-<<<<<<< HEAD
--(void)buttonOnPopupView:(UIButton *)btn;
+-(void)buttonOnPopupView:(UIButton *)sender;
+
 
 //-------------------------------------
 //Input function
 -(void)displayInputFiled;
-=======
--(void)buttonOnPopupView:(UIButton *)sender;
->>>>>>> origin/master
+
+
 
 @end
