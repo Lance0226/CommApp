@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "NavigationBar.h"
-#import "CustomTextField.h"
 
-@interface EditViewController : UIViewController<NavigationBarDelegate>
+@interface EditViewController : UIViewController<NavigationBarDelegate,UITextViewDelegate>
 
 @property (nonatomic,strong)UINavigationBar *navigationBar;
-@property (nonatomic,strong) CustomeTextField *inputField;
+@property (nonatomic,strong) UITextView *titleInputField;
+@property (nonatomic,strong) UITextView *contentInputField;
 
+@property CGFloat accumWidth;
+
+-(void)initialize;
 -(void)addNavigationBar;
--(void)addInputField;
+-(void)addTextField;
+-(void)addButtonWithTag:(NSInteger )tag andWidthIndex:(NSInteger)index;
 @end

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E501BF71B5F87D000FBAB4C /* EditViewController.m */; };
 		7EB8B1ED1B5FAC7300F2B514 /* NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */; };
-		F731DA881B5FF841009A8735 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F731DA871B5FF841009A8735 /* CustomTextField.m */; };
 		F7DF3EC41B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */; };
 		F7DF3EC71B5BF69700C9C6E9 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3EC61B5BF69700C9C6E9 /* TabBarController.m */; };
 		F7DF3ED11B5C00B900C9C6E9 /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3ED01B5C00B900C9C6E9 /* PlayerInfo.m */; };
@@ -46,8 +45,6 @@
 		7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBar.m; sourceTree = "<group>"; };
 		854C9DF5B81676DE4FFDC951 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D61259E419BE13B7F5BC8667 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F731DA861B5FF841009A8735 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
-		F731DA871B5FF841009A8735 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
 		F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images 21-57-01-653.xcassets"; sourceTree = "<group>"; };
 		F7DF3EC51B5BF69700C9C6E9 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		F7DF3EC61B5BF69700C9C6E9 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
@@ -111,8 +108,6 @@
 			children = (
 				7E501BF61B5F87D000FBAB4C /* EditViewController.h */,
 				7E501BF71B5F87D000FBAB4C /* EditViewController.m */,
-				F731DA861B5FF841009A8735 /* CustomTextField.h */,
-				F731DA871B5FF841009A8735 /* CustomTextField.m */,
 			);
 			name = EditPage;
 			sourceTree = "<group>";
@@ -409,7 +404,6 @@
 				F7E0FB9A1B540AAA00A44982 /* CommApp.xcdatamodeld in Sources */,
 				7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */,
 				F7E0FBC91B540B8100A44982 /* SecondViewController.m in Sources */,
-				F731DA881B5FF841009A8735 /* CustomTextField.m in Sources */,
 				F7E0FB941B540AAA00A44982 /* main.m in Sources */,
 				F7E0FBC21B540B7200A44982 /* FirstViewController.m in Sources */,
 				F7DF3ED11B5C00B900C9C6E9 /* PlayerInfo.m in Sources */,
