@@ -45,6 +45,7 @@
 		7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBar.m; sourceTree = "<group>"; };
 		854C9DF5B81676DE4FFDC951 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D61259E419BE13B7F5BC8667 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F7D1D1581B630DF2008B4BA9 /* libEaseMobClientSDKLite_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEaseMobClientSDKLite_arm64.a; path = Pods/EaseMobSDK/EaseMobSDK/lib/libEaseMobClientSDKLite_arm64.a; sourceTree = "<group>"; };
 		F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images 21-57-01-653.xcassets"; sourceTree = "<group>"; };
 		F7DF3EC51B5BF69700C9C6E9 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		F7DF3EC61B5BF69700C9C6E9 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		B9EC06ACCDA214285582502A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7D1D1581B630DF2008B4BA9 /* libEaseMobClientSDKLite_arm64.a */,
 				3CF697D7250E7EC0E28ABA24 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -545,8 +547,16 @@
 					/usr/local/Cellar/protobuf250/2.5.0/lib,
 					/usr/local/Cellar/protobuf/2.6.1/lib,
 					/Users/Hanlu/Downloads,
+					"$(PROJECT_DIR)/Pods/EaseMobSDK/EaseMobSDK/lib",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = /;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					/user/local/include,
+					/Users/Hanlu/Desktop,
+					/usr/local/Cellar/protobuf250/2.5.0/lib,
+					/usr/local/Cellar/protobuf/2.6.1/lib,
+					/Users/Hanlu/Downloads,
+					"$(PROJECT_DIR)/Pods/EaseMobSDK/EaseMobSDK/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -572,6 +582,7 @@
 					/usr/local/Cellar/protobuf250/2.5.0/lib,
 					/usr/local/Cellar/protobuf/2.6.1/lib,
 					/Users/Hanlu/Downloads,
+					"$(PROJECT_DIR)/Pods/EaseMobSDK/EaseMobSDK/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
