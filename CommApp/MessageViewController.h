@@ -1,5 +1,5 @@
 //
-//  FiveViewController.h
+//  FourViewController.h
 //  CommuncationApp
 //
 //  Created by 韩渌 on 15/7/6.
@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface FiveViewController : UIViewController
 
+
+@interface MessageViewController : UIViewController
+-(void)addNavitionBar;  //添加导航栏
 @end

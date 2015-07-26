@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "EaseMob.h"
+#import "NavigationBarMgr.h"
 
 @interface AppDelegate ()
 
@@ -18,8 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //加载环信应用实例
     [[EaseMob sharedInstance]registerSDKWithAppKey:@"lance0226#chatdemo" apnsCertName:@"chatdemo"];
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    //加载导航栏单例
+    [NavigationBarMgr sharedInstance];
     return YES;
 }
 

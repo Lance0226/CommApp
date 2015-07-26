@@ -1,5 +1,5 @@
 //
-//  FourViewController.h
+//  SecondViewController.h
 //  CommuncationApp
 //
 //  Created by 韩渌 on 15/7/6.
@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@interface DiscoveryViewController : UIViewController
 
-@interface FourViewController : UIViewController
+-(void)addNavitionBar;  //添加导航栏
 
 @end
+

@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  FiveViewController.h
 //  CommuncationApp
 //
 //  Created by 韩渌 on 15/7/6.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SecondViewController : UIViewController
-
+@interface MyInfoViewController : UIViewController
+-(void)addNavitionBar;  //添加导航栏
 
 @end
-

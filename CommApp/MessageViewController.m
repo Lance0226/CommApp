@@ -6,19 +6,21 @@
 //  Copyright (c) 2015年 hanlu. All rights reserved.
 //
 
-#import "FourViewController.h"
+#import "MessageViewController.h"
 #import "EaseMob.h"
+#import "NavigationBarMgr.h"
 
-@interface FourViewController ()<EMChatManagerLoginDelegate>
+@interface MessageViewController ()<EMChatManagerLoginDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *HuanXinUsername;//登陆用户，用户名
 @property (retain, nonatomic) IBOutlet UITextField *HuanXinpassword;//登陆用户 密码
 
 @end
 
-@implementation FourViewController
+@implementation MessageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addNavitionBar];
     
 }
 
@@ -26,6 +28,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)addNavitionBar
+{
+    NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
+    UINavigationBar *bar=[navBar getNavigationBar];
+    [self.view addSubview:bar];
+}
+
 - (IBAction)HuanXinRegister:(id)sender
 {
     [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:self.HuanXinUsername.text password:self.HuanXinpassword.text];

@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface GroundViewController : UIViewController
 
+@property (strong,nonatomic) NSMutableArray *bodyList;//内容列表
+@property (strong,nonatomic) NSMutableArray *nameList;//姓名列表
+@property (strong,nonatomic) NSMutableArray *timeList;//时间列表
+@property (strong,nonatomic) NSMutableArray *titleList;//标题列表
 
+@property (strong,nonatomic) NSInputStream *inputStream;//网络输入流
+@property (strong,nonatomic) NSOutputStream *outputStream;//网络输出流
+@property (assign,nonatomic)BOOL isHead; //Check if it is package header or not
+
+-(void)addNavitionBar;  //添加导航栏
 -(void)dataInitialize; //Intialize all data in the table view
 
 -(void)setSegControl;    //Set Segment contorl for changing segment in the First View

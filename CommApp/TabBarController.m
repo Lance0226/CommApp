@@ -19,8 +19,8 @@
 @synthesize m_tabBarView=_m_tabBarView;
 @synthesize m_popupView=_m_popupView;
 
-@synthesize m_centerBtn;  //Plus Button
-@synthesize m_isPopupViewDisplay;
+@synthesize m_centerBtn=_m_centerBtn;  //Plus Button
+@synthesize m_isPopupViewDisplay=_m_isPopupViewDisplay;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -138,11 +138,14 @@
 
 -(void)displayInputFiled
 {
+    
     [self performSegueWithIdentifier:@"edit_segue" sender:self];
 }
 
 - (void)dealloc {
     [_m_tabBarView release];
+    [_m_popupView release];
+    [_m_centerBtn release];
     [super dealloc];
 }
 

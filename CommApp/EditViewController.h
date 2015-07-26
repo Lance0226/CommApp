@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NavigationBar.h"
+//#import "NavigationBar.h"
 
-@interface EditViewController : UIViewController<NavigationBarDelegate,UITextViewDelegate>
+@interface EditViewController : UIViewController<UITextViewDelegate>
 
 @property (nonatomic,strong)UINavigationBar *navigationBar;
 @property (nonatomic,strong) UITextView *titleInputField;

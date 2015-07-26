@@ -7,6 +7,7 @@
 //
 
 #import "EditViewController.h"
+#import "NavigationBarMgr.h"
 
 
 @interface EditViewController ()
@@ -46,16 +47,18 @@
 //--------------------------------------------------
 //Navigation Bar Method
 -(void)addNavigationBar
-{   NavigationBar *navbar=[[NavigationBar alloc]init];
-    [navbar setDelegate:self];
-    self.navigationBar=[navbar drawNavigationBar];
-    [self.view addSubview:self.navigationBar];
-}
+{   
+ NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
+ self.navigationBar=[navBar getNavigationBar];
+ [self.view addSubview:self.navigationBar];
 
+}
+/*
 -(NSString*)setNavigationBarTitle  //Navigation delegate method
 {
     return @"勾  勾";
 }
+*/
 //---------------------------------------------------
 //Input Field
 -(void)addTextField
@@ -112,7 +115,12 @@
     
 }
 
-
+- (void)dealloc
+{
+    [super dealloc];
+    [_titleInputField release];
+    [_contentInputField release];
+}
 
 
 

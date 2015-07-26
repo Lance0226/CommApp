@@ -6,12 +6,28 @@
 //  Copyright (c) 2015 hanlu. All rights reserved.
 //
 
-#import "NavigationBar.h"
+#import "NavigationBarMgr.h"
 
-@implementation NavigationBar
+@implementation NavigationBarMgr
 @synthesize delegate;
++(NavigationBarMgr*)sharedInstance
+{
+    static NavigationBarMgr* _sharedInstance=nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance=[[NavigationBarMgr alloc]init];
+    });
+    _sharedInstance.navigationBar=[_sharedInstance drawNavigationBar];
+    return _sharedInstance;
+}
 
--(UINavigationBar*)drawNavigationBar
+
+-(UINavigationBar*)getNavigationBar
+{
+    return self.navigationBar;
+}
+
+-(UINavigationBar*)drawNavigationBar  //私有方法
 {
     //Draw navigationbar view
     CGFloat barWidth=[[UIScreen mainScreen]bounds].size.width;
@@ -35,5 +51,12 @@
 -(void)setDelegate:(id)newdelegate
 {
     delegate=newdelegate;
+}
+
+-(void)dealloc
+{
+    [delegate release];
+    [super dealloc];
+    
 }
 @end

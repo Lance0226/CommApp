@@ -13,10 +13,10 @@
 /*<<<<<<< HEAD
 @property (nonatomic, strong) IBOutlet UIButton  *m_centerBtn; //Add button
 */
-@property (nonatomic, strong) IBOutlet UIButton  *m_centerBtn;
+@property (nonatomic, retain) IBOutlet UIButton  *m_centerBtn;
 //The View that contains gouyigou and piaoliuping is displayed or not.
-@property (nonatomic)        bool                 m_isPopupViewDisplay;
-@property (nonatomic,strong) UIView              *m_popupView;
+@property (nonatomic,assign)           bool       m_isPopupViewDisplay;
+@property (nonatomic,retain) UIView               *m_popupView;
 
 
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E501BF71B5F87D000FBAB4C /* EditViewController.m */; };
-		7EB8B1ED1B5FAC7300F2B514 /* NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */; };
+		7EB8B1ED1B5FAC7300F2B514 /* NavigationBarMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB8B1EC1B5FAC7300F2B514 /* NavigationBarMgr.m */; };
 		F7DF3EC41B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */; };
 		F7DF3EC71B5BF69700C9C6E9 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3EC61B5BF69700C9C6E9 /* TabBarController.m */; };
 		F7DF3ED11B5C00B900C9C6E9 /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3ED01B5C00B900C9C6E9 /* PlayerInfo.m */; };
@@ -19,10 +19,10 @@
 		F7E0FBA51B540AAA00A44982 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E0FBA31B540AAA00A44982 /* LaunchScreen.xib */; };
 		F7E0FBB11B540AAB00A44982 /* CommAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBB01B540AAB00A44982 /* CommAppTests.m */; };
 		F7E0FBBB1B540ADE00A44982 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E0FBBA1B540ADE00A44982 /* Main.storyboard */; };
-		F7E0FBC21B540B7200A44982 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBBD1B540B7200A44982 /* FirstViewController.m */; };
-		F7E0FBC31B540B7200A44982 /* FiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBBF1B540B7200A44982 /* FiveViewController.m */; };
-		F7E0FBC41B540B7200A44982 /* FourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC11B540B7200A44982 /* FourViewController.m */; };
-		F7E0FBC91B540B8100A44982 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC61B540B8100A44982 /* SecondViewController.m */; };
+		F7E0FBC21B540B7200A44982 /* GroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBBD1B540B7200A44982 /* GroundViewController.m */; };
+		F7E0FBC31B540B7200A44982 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBBF1B540B7200A44982 /* MyInfoViewController.m */; };
+		F7E0FBC41B540B7200A44982 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC11B540B7200A44982 /* MessageViewController.m */; };
+		F7E0FBC91B540B8100A44982 /* DiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC61B540B8100A44982 /* DiscoveryViewController.m */; };
 		F7E2F68F1B59EC220097677B /* Test.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2F68E1B59EC220097677B /* Test.pb.m */; };
 		F8C232B4BEADD25BB61FE4E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF697D7250E7EC0E28ABA24 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -41,8 +41,8 @@
 		3CF697D7250E7EC0E28ABA24 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E501BF61B5F87D000FBAB4C /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		7E501BF71B5F87D000FBAB4C /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
-		7EB8B1EB1B5FAC7300F2B514 /* NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBar.h; sourceTree = "<group>"; };
-		7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBar.m; sourceTree = "<group>"; };
+		7EB8B1EB1B5FAC7300F2B514 /* NavigationBarMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarMgr.h; sourceTree = "<group>"; };
+		7EB8B1EC1B5FAC7300F2B514 /* NavigationBarMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarMgr.m; sourceTree = "<group>"; };
 		854C9DF5B81676DE4FFDC951 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D61259E419BE13B7F5BC8667 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F7D1D1581B630DF2008B4BA9 /* libEaseMobClientSDKLite_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEaseMobClientSDKLite_arm64.a; path = Pods/EaseMobSDK/EaseMobSDK/lib/libEaseMobClientSDKLite_arm64.a; sourceTree = "<group>"; };
@@ -64,14 +64,14 @@
 		F7E0FBAF1B540AAB00A44982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7E0FBB01B540AAB00A44982 /* CommAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommAppTests.m; sourceTree = "<group>"; };
 		F7E0FBBA1B540ADE00A44982 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		F7E0FBBC1B540B7200A44982 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		F7E0FBBD1B540B7200A44982 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		F7E0FBBE1B540B7200A44982 /* FiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiveViewController.h; sourceTree = "<group>"; };
-		F7E0FBBF1B540B7200A44982 /* FiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiveViewController.m; sourceTree = "<group>"; };
-		F7E0FBC01B540B7200A44982 /* FourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourViewController.h; sourceTree = "<group>"; };
-		F7E0FBC11B540B7200A44982 /* FourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourViewController.m; sourceTree = "<group>"; };
-		F7E0FBC51B540B8100A44982 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		F7E0FBC61B540B8100A44982 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		F7E0FBBC1B540B7200A44982 /* GroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundViewController.h; sourceTree = "<group>"; };
+		F7E0FBBD1B540B7200A44982 /* GroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroundViewController.m; sourceTree = "<group>"; };
+		F7E0FBBE1B540B7200A44982 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
+		F7E0FBBF1B540B7200A44982 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
+		F7E0FBC01B540B7200A44982 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		F7E0FBC11B540B7200A44982 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		F7E0FBC51B540B8100A44982 /* DiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoveryViewController.h; sourceTree = "<group>"; };
+		F7E0FBC61B540B8100A44982 /* DiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoveryViewController.m; sourceTree = "<group>"; };
 		F7E2F68D1B59EC220097677B /* Test.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.pb.h; sourceTree = "<group>"; };
 		F7E2F68E1B59EC220097677B /* Test.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.pb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,8 +116,8 @@
 		7EB8B1EA1B5FAC3700F2B514 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				7EB8B1EB1B5FAC7300F2B514 /* NavigationBar.h */,
-				7EB8B1EC1B5FAC7300F2B514 /* NavigationBar.m */,
+				7EB8B1EB1B5FAC7300F2B514 /* NavigationBarMgr.h */,
+				7EB8B1EC1B5FAC7300F2B514 /* NavigationBarMgr.m */,
 			);
 			name = NavigationBar;
 			sourceTree = "<group>";
@@ -134,8 +134,8 @@
 		F7DF3EC81B5BFCB100C9C6E9 /* GourndPage */ = {
 			isa = PBXGroup;
 			children = (
-				F7E0FBBC1B540B7200A44982 /* FirstViewController.h */,
-				F7E0FBBD1B540B7200A44982 /* FirstViewController.m */,
+				F7E0FBBC1B540B7200A44982 /* GroundViewController.h */,
+				F7E0FBBD1B540B7200A44982 /* GroundViewController.m */,
 			);
 			name = GourndPage;
 			sourceTree = "<group>";
@@ -143,8 +143,8 @@
 		F7DF3EC91B5BFD1C00C9C6E9 /* DiscoveryPage */ = {
 			isa = PBXGroup;
 			children = (
-				F7E0FBC51B540B8100A44982 /* SecondViewController.h */,
-				F7E0FBC61B540B8100A44982 /* SecondViewController.m */,
+				F7E0FBC51B540B8100A44982 /* DiscoveryViewController.h */,
+				F7E0FBC61B540B8100A44982 /* DiscoveryViewController.m */,
 			);
 			name = DiscoveryPage;
 			sourceTree = "<group>";
@@ -161,8 +161,8 @@
 		F7DF3ECB1B5BFE4600C9C6E9 /* MessagePage */ = {
 			isa = PBXGroup;
 			children = (
-				F7E0FBC01B540B7200A44982 /* FourViewController.h */,
-				F7E0FBC11B540B7200A44982 /* FourViewController.m */,
+				F7E0FBC01B540B7200A44982 /* MessageViewController.h */,
+				F7E0FBC11B540B7200A44982 /* MessageViewController.m */,
 			);
 			name = MessagePage;
 			sourceTree = "<group>";
@@ -170,8 +170,8 @@
 		F7DF3ECC1B5BFE9A00C9C6E9 /* MyInfoPage */ = {
 			isa = PBXGroup;
 			children = (
-				F7E0FBBE1B540B7200A44982 /* FiveViewController.h */,
-				F7E0FBBF1B540B7200A44982 /* FiveViewController.m */,
+				F7E0FBBE1B540B7200A44982 /* MyInfoViewController.h */,
+				F7E0FBBF1B540B7200A44982 /* MyInfoViewController.m */,
 			);
 			name = MyInfoPage;
 			sourceTree = "<group>";
@@ -401,18 +401,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7DF3ED41B5C017300C9C6E9 /* CoreDataExec.m in Sources */,
-				F7E0FBC41B540B7200A44982 /* FourViewController.m in Sources */,
+				F7E0FBC41B540B7200A44982 /* MessageViewController.m in Sources */,
 				F7E0FB971B540AAA00A44982 /* AppDelegate.m in Sources */,
 				F7E0FB9A1B540AAA00A44982 /* CommApp.xcdatamodeld in Sources */,
 				7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */,
-				F7E0FBC91B540B8100A44982 /* SecondViewController.m in Sources */,
+				F7E0FBC91B540B8100A44982 /* DiscoveryViewController.m in Sources */,
 				F7E0FB941B540AAA00A44982 /* main.m in Sources */,
-				F7E0FBC21B540B7200A44982 /* FirstViewController.m in Sources */,
+				F7E0FBC21B540B7200A44982 /* GroundViewController.m in Sources */,
 				F7DF3ED11B5C00B900C9C6E9 /* PlayerInfo.m in Sources */,
-				7EB8B1ED1B5FAC7300F2B514 /* NavigationBar.m in Sources */,
+				7EB8B1ED1B5FAC7300F2B514 /* NavigationBarMgr.m in Sources */,
 				F7E2F68F1B59EC220097677B /* Test.pb.m in Sources */,
 				F7DF3EC71B5BF69700C9C6E9 /* TabBarController.m in Sources */,
-				F7E0FBC31B540B7200A44982 /* FiveViewController.m in Sources */,
+				F7E0FBC31B540B7200A44982 /* MyInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

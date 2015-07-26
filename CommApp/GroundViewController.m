@@ -6,32 +6,24 @@
 //  Copyright (c) 2015年 hanlu. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "GroundViewController.h"
 #import "Test.pb.h"
+//#import "NavigationBarMgr.h"
 #import "CoreDataExec.h"
+#import "NavigationBarMgr.h"
 
-@interface FirstViewController () <UITableViewDataSource,UITableViewDelegate,NSStreamDelegate>
+@interface GroundViewController () <UITableViewDataSource,UITableViewDelegate,NSStreamDelegate>
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segControl;
 @property (strong, nonatomic) IBOutlet UITableView *MsgTableView;
 
-@property (strong,nonatomic) NSMutableArray *List;
-@property (strong,nonatomic) NSMutableArray *nameList;
-@property (strong,nonatomic) NSMutableArray *timeList;
-@property (strong,nonatomic) NSMutableArray *titleList;
-
-@property (strong,nonatomic) NSInputStream *inputStream;
-@property (strong,nonatomic) NSOutputStream *outputStream;
-
-@property (strong, nonatomic) IBOutlet UITextField *NameTextFild;
-@property BOOL isHead; //Check if it is package header or not
 @end
 
-@implementation FirstViewController
+@implementation GroundViewController
 
 @synthesize segControl=_segControl;
 @synthesize MsgTableView=_MsgTableView;
 
-@synthesize List=_List;
+@synthesize bodyList=_bodyList;
 @synthesize nameList=_nameList;
 @synthesize titleList=_titleList;
 @synthesize timeList=_timeList;
@@ -56,10 +48,14 @@
     
     [self initNetworkCommunication];
     
-    CoreDataExec *coreDataExec=[[CoreDataExec alloc]init];
-    [coreDataExec initData];
-    [coreDataExec insert2CoreData];
-    [coreDataExec searchData];
+    [self addNavitionBar];
+    
+    
+    //操作Core Data对象
+    //CoreDataExec *coreDataExec=[[CoreDataExec alloc]init];
+    //[coreDataExec initData];
+    //[coreDataExec insert2CoreData];
+    //[coreDataExec searchData];
     
 }
 
@@ -67,9 +63,18 @@
     [super didReceiveMemoryWarning];
 }
 /*--------------------------------------------------------------------------------*/
+
+-(void)addNavitionBar
+{
+    NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
+    UINavigationBar *bar=[navBar getNavigationBar];
+    [self.view addSubview:bar];
+}
+
+/*--------------------------------------------------------------------------------*/
  -(void)dataInitialize
 {
-    self.List=[NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",nil];
+    self.bodyList=[NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",nil];
     self.nameList=[NSMutableArray arrayWithObjects:@"Lance",@"Tom",@"Jack",@"Adm",@"Rose",@"Terry",@"Dirk",nil];
     self.timeList=[NSMutableArray arrayWithObjects:@"1111",@"2222",@"3333",@"4444",@"5555",@"6666",@"7777",nil];
     self.titleList=[NSMutableArray arrayWithObjects:@"AAAAAAAA",@"BBBBBBB",@"CCCCCC",@"DDDD",@"EEEEE",@"FFFF",@"JJJJ",nil];
@@ -78,7 +83,6 @@
     
     
 }
-
 /*-------------------------------------------------------------------------------*/
 /*Initialize First View Page UI*/
 -(void)setSegControl
@@ -105,7 +109,6 @@
     static NSString *CellWithIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
      NSUInteger row = [indexPath row];
-    
     if (cell==nil)
     {
      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellWithIdentifier];
@@ -126,14 +129,14 @@
     }
     
    
-    cell.textLabel.text = [self.List objectAtIndex:row];
+    cell.textLabel.text = [self.bodyList objectAtIndex:row];
     
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.List count];
+    return [self.bodyList count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -295,6 +298,17 @@
     return numData;
 }
 
+-(void)dealloc
+{
+    [super dealloc];
+    [_segControl release];
+    [_MsgTableView release];
+    [_bodyList release];
+    [_nameList release];
+    [_timeList release];
+    [_titleList release];
+    
+}
 
 
 @end
