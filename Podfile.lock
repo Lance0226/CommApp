@@ -1,0 +1,22 @@
+PODS:
+  - EaseMobSDK (2.1.8)
+  - ProtocolBuffers (1.9.7)
+
+DEPENDENCIES:
+  - EaseMobSDK (from `https://github.com/easemob/sdk-ios-cocoapods.git`)
+  - ProtocolBuffers (= 1.9.7)
+
+EXTERNAL SOURCES:
+  EaseMobSDK:
+    :git: https://github.com/easemob/sdk-ios-cocoapods.git
+
+CHECKOUT OPTIONS:
+  EaseMobSDK:
+    :commit: d4fdf30a087825779f6d3def7a7dfdef6d4cea9c
+    :git: https://github.com/easemob/sdk-ios-cocoapods.git
+
+SPEC CHECKSUMS:
+  EaseMobSDK: 639251847fa6de8cd752a6d4ca841e1753903683
+  ProtocolBuffers: 0682a66dec85e5a45bd53a2f44b8b987a0ba845f
+
+COCOAPODS: 0.37.2
