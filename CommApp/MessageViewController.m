@@ -10,7 +10,7 @@
 #import "EaseMob.h"
 #import "NavigationBarMgr.h"
 
-@interface MessageViewController ()<EMChatManagerLoginDelegate,IChatManagerDelegate>
+@interface MessageViewController ()<UIAlertViewDelegate,EMChatManagerLoginDelegate,IChatManagerDelegate> //登录对话框响应
 @property (retain, nonatomic) IBOutlet UITextField *HuanXinUsername;//登陆用户，用户名
 @property (retain, nonatomic) IBOutlet UITextField *HuanXinpassword;//登陆用户 密码
 
@@ -23,13 +23,38 @@
     [super viewDidLoad];
     [self addNavitionBar];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    [self popUpLoginAndRegisterAlertView];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+-(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
+{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"登录或注册"
+                           
+                                                      message:@"请登录"
+                           
+                                                      delegate:self
+                           
+                                                      cancelButtonTitle:@"取消"
+                           
+                                                      otherButtonTitles:@"登录",@"注册",nil];
+    [alert setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
+    UITextField *usernameTextField=[alert textFieldAtIndex:0];
+    UITextField *passwordTextField=[alert textFieldAtIndex:1];
+    [alert show];
+    
+
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  //响应登录框提交事件
+{
+    NSLog(@"%ld",(long)buttonIndex);
+}
+
 
 -(void)addNavitionBar
 {
@@ -53,6 +78,32 @@
 //委托方法 回调登陆状态信息
 -(void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
+    
+    NSLog(@"tttttttt+%@",error.description);
+    
+    
+    if (error!=nil)
+    {
+        NSLog(@"%ld",(long)error.description);//错误代码
+        //根据错误信息编号，弹出对应错误信息
+        NSString *errorChnDescription;
+        switch (error.errorCode)
+        {
+                case EMErrorNotFound:                          errorChnDescription=@"用户名不存在";break;
+                case EMErrorServerAuthenticationFailure:       errorChnDescription=@"用户名或密码错误";break;
+                default:                                       errorChnDescription=@"未知错误";break;
+        }
+        
+        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"登陆失败" message:errorChnDescription delegate:nil
+                                                       cancelButtonTitle:@"好" otherButtonTitles:nil];
+        [AlertView show];
+    }
+    else
+    {
+      
+    }
+   
+    
     NSEnumerator *loginKeyEnum=[loginInfo keyEnumerator];
     for (NSObject *obj1 in loginKeyEnum)
     {
@@ -70,11 +121,26 @@
 {
     if (error!=nil)
     {
-        NSLog(@"%ld",(long)error.errorCode);//错误代码
-        NSLog(@"%@",error.description);    //错误信息
+        NSLog(@"%ld",(long)error.description);//错误代码
+        //根据错误信息编号，弹出对应错误信息
+        NSString *errorChnDescription;
+        switch (error.errorCode)
+        {
+                case EMErrorServerDuplicatedAccount: errorChnDescription=@"用户名已存在";break;
+                default:                             errorChnDescription=@"未知错误";break;
+        }
+        
+        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"注册失败" message:errorChnDescription delegate:nil
+                                                       cancelButtonTitle:@"好" otherButtonTitles:nil];
+        [AlertView show];
+        NSLog(@"注册失败");
+
     }
     else
     {
+        UIAlertView *scussessAlertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:@"恭喜您注册成为勾勾会员" delegate:nil
+                                                           cancelButtonTitle:@"好" otherButtonTitles:nil];
+        [scussessAlertView show];
         NSLog(@"注册成功");
     }
     

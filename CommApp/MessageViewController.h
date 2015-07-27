@@ -11,4 +11,5 @@
 
 @interface MessageViewController : UIViewController
 -(void)addNavitionBar;  //添加导航栏
+-(void)popUpLoginAndRegisterAlertView;//点击该界面弹出登录框
 @end
