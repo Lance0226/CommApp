@@ -16,17 +16,18 @@
 
 @property (retain,nonatomic) UITextField *passwordHuanXinTextField;
 @property (retain, nonatomic) IBOutlet UITextField *MessageTextField;
-@property (retain, nonatomic) IBOutlet UITableView *HuanXinChatView; //对话列表
+@property (retain, nonatomic)  UITableView *HuanXinChatView; //对话列表,使用的UITableView Controller
 
-@property (retain,nonatomic) NSMutableArray *chatList;
-@property (assign) bool flag;
+@property (retain,nonatomic) NSMutableArray *chatContentList;  //对话内容数组
+@property (retain,nonatomic) NSMutableArray *chatNameList;    //对话发出者姓名数组
+@property (retain,nonatomic) NSMutableArray *chatIsLocalList; //对话发出者是否来自本季，本机为YES,它机为NO
 
 @end
 
 @implementation MessageViewController
 @synthesize usernameHuanXinTextField=_usernameHuanXinTextField;
 @synthesize passwordHuanXinTextField=_passwordHuanXinTextField;
-@synthesize chatList=_chatList;
+@synthesize chatContentList=_chatContentList;
 
 
 
@@ -45,8 +46,16 @@
 
 -(void)Initialize //数据初始化
 {
-    self.chatList=[[NSMutableArray alloc]init];
-    self.flag=YES;
+    self.HuanXinChatView=[[UITableView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.25f, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.75f)];
+    [self.view addSubview:self.HuanXinChatView];
+    self.HuanXinChatView.separatorStyle=NO;
+    self.HuanXinChatView.delegate=self; //添加tableview控制器的委托方法
+    self.HuanXinChatView.dataSource=self;//添加tableview数据的委托方法
+    
+    self.chatContentList=[[NSMutableArray alloc]init];
+    self.chatNameList=[[NSMutableArray alloc]init];
+    self.chatIsLocalList=[[NSMutableArray alloc]init];
+    
 }
 
 -(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
@@ -213,10 +222,8 @@
             id<IEMMessageBody> messagebody=[message.messageBodies lastObject];//由于只传一个messagebody对象
             switch (messagebody.messageBodyType) {
                 case eMessageBodyType_Text:
-                    [self dealwithTextMessage:(EMTextMessageBody *)messagebody];
-                    [self.chatList addObject:((EMTextMessageBody *)messagebody).text];
-                NSLog(@"output+%@",((EMTextMessageBody *)messagebody).text);
-                    [self.HuanXinChatView reloadData];
+                    [self addReceiverInfo:message];
+                    [self updateHuanXinChatView];
                 break;
                 default:break;
             }
@@ -226,23 +233,45 @@
     }
 }
 
--(NSString *)dealwithTextMessage :(EMTextMessageBody *)message
-{
-    return message.text;
-}
-
 - (IBAction)HuanXINSend:(id)sender
 {
-    [self.chatList addObject:self.MessageTextField.text];
+    [self addSenderInfo];
     EMChatText *texChat=[[EMChatText alloc] initWithText:self.MessageTextField.text];
     EMTextMessageBody *body=[[EMTextMessageBody alloc]initWithChatObject:texChat];
+    [self updateHuanXinChatView]; //刷新聊天列表
     EMMessage *message=[[EMMessage alloc]initWithReceiver:self.usernameHuanXinTextField.text bodies:@[body]];
     [message setMessageType:eMessageTypeChat]; //设置为单聊模式
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
 }
 
+-(void)updateHuanXinChatView
+{
+    [self.HuanXinChatView reloadData];//刷新列表
+    [self.HuanXinChatView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+
+}
+
+
+//添加发送信息
+-(void)addSenderInfo
+{
+    [self.chatNameList addObject:self.usernameHuanXinTextField.text];
+    [self.chatContentList addObject:self.MessageTextField.text];
+    [self.chatIsLocalList addObject:[[NSNumber alloc]initWithBool:YES]];
+}
+
+//添加接受信息
+-(void)addReceiverInfo:(EMMessage *)message
+{
+    id<IEMMessageBody> messagebody=[message.messageBodies lastObject];//由于只传一个messagebody对象
+    [self.chatContentList addObject:((EMTextMessageBody *)messagebody).text];
+    [self.chatNameList addObject:message.from];
+    [self.chatIsLocalList addObject:[[NSNumber alloc] initWithBool:NO]];
+}
+
 //----------------------------------------------
+#pragma mark - "TabelViewController Method"
 //对话列表
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -251,17 +280,72 @@
     NSUInteger row = [indexPath row];
     if (cell==nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellWithIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellWithIdentifier];
+        CALayer *nameLayer=[self setNameLayerWithRowIndex:row];
+        CALayer *contentLayer=[self setContentLayerWithRowIndex:row];
+        [cell.layer addSublayer:nameLayer];
+        [cell.layer addSublayer:contentLayer];
     }
-    cell.textLabel.text=[self.chatList objectAtIndex:row];
     return cell;
     
 }
+// 设置TableViewController的行数
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  [self.chatList count];
+    return [self.chatContentList count];
 }
+//姓名框
+-(CALayer*)setNameLayerWithRowIndex:(NSUInteger )rowIndex
+{
+    CATextLayer *nameLayer=[[CATextLayer alloc]init];
+    [nameLayer setFont:@"HelveticaNeue"];
+    [nameLayer setFontSize:15];
+    [nameLayer setString:[self.chatNameList objectAtIndex:rowIndex]];
+    [nameLayer setAlignmentMode:kCAAlignmentCenter];
+    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
+    
+    BOOL isLocal=[[self.chatIsLocalList objectAtIndex:rowIndex]boolValue];//查看数据是否来自本地
+    //本地显示在右，远端显示在左
+    if (isLocal==YES)
+    {
+        [nameLayer setFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-100, 0, 50, 30)];
+    }
+    else
+    {
+    [nameLayer setFrame:CGRectMake(20, 0, 50, 30)];
+    }
+    return nameLayer;
+}
+
+//对话内容框
+-(CALayer*)setContentLayerWithRowIndex:(NSUInteger )rowIndex
+{
+    CATextLayer *nameLayer=[[CATextLayer alloc]init];
+    [nameLayer setFont:@"HelveticaNeue"];
+    [nameLayer setFontSize:15];
+    [nameLayer setString:[self.chatContentList objectAtIndex:rowIndex]];
+    [nameLayer setAlignmentMode:kCAAlignmentCenter];
+    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
+    
+    BOOL isLocal=[[self.chatIsLocalList objectAtIndex:rowIndex]boolValue];//查看数据是否来自本地
+    //本地显示在右，远端显示在左
+    if (isLocal==YES)
+    {
+        [nameLayer setFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-100, 30, 50, 30)];
+    }
+    else
+    {
+        [nameLayer setFrame:CGRectMake(20, 30, 50, 30)];
+    }
+    return nameLayer;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
 
 
 

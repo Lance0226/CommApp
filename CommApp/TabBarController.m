@@ -41,6 +41,8 @@
 -(void)changeTabBarView
 {
     self.tabBar.tintColor=[UIColor blackColor];
+    
+    
 }
 
 -(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage *)btnImage HighlightedImage:(UIImage *)hlImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
