@@ -42,6 +42,22 @@
 {
     self.tabBar.tintColor=[UIColor blackColor];
     
+    UITabBarItem *tabBarItem1 = [self.tabBar.items objectAtIndex:0];
+    UITabBarItem *tabBarItem2 = [self.tabBar.items objectAtIndex:1];
+    UITabBarItem *tabBarItem3 = [self.tabBar.items objectAtIndex:2];
+    UITabBarItem *tabBarItem4 = [self.tabBar.items objectAtIndex:3];
+    
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:13]};
+    [tabBarItem1 setTitleTextAttributes:attribs forState:UIControlStateNormal];
+    [tabBarItem2 setTitleTextAttributes:attribs forState:UIControlStateNormal];
+    [tabBarItem3 setTitleTextAttributes:attribs forState:UIControlStateNormal];
+    [tabBarItem4 setTitleTextAttributes:attribs forState:UIControlStateNormal];
+    
+     tabBarItem1.title = @"广 场";
+    tabBarItem2.title = @"发 现";
+    tabBarItem3.title = @"消 息";
+    tabBarItem4.title = @"我";
+    
     
 }
 

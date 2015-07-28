@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -34,8 +34,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" id="yM1-fr-nHd">
-                        <inset key="imageInsets" minX="-4" minY="2" maxX="-4" maxY="-7"/>
+                    <tabBarItem key="tabBarItem" image="message" id="yM1-fr-nHd">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-4" maxY="0.0"/>
                     </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -65,8 +65,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" id="acW-dT-cKf">
-                        <inset key="imageInsets" minX="-4" minY="2" maxX="-4" maxY="-7"/>
+                    <tabBarItem key="tabBarItem" image="ground" id="acW-dT-cKf">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -113,9 +112,7 @@
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" id="cPa-gy-q4n">
-                        <inset key="imageInsets" minX="-4" minY="2" maxX="-4" maxY="-7"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" image="discovery" id="cPa-gy-q4n"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -144,9 +141,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" id="iYQ-bq-1ON">
-                        <inset key="imageInsets" minX="-4" minY="2" maxX="-4" maxY="-7"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" image="me" id="iYQ-bq-1ON"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fB1-xp-KLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -202,5 +197,11 @@
             <point key="canvasLocation" x="-186.5" y="-237.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="discovery" width="70" height="30"/>
+        <image name="ground" width="75" height="34"/>
+        <image name="me" width="85" height="34"/>
+        <image name="message" width="90" height="32"/>
+    </resources>
     <color key="tintColor" red="1" green="0.0" blue="0.99969387620000005" alpha="1" colorSpace="calibratedRGB"/>
 </document>
