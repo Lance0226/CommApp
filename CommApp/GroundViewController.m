@@ -158,6 +158,7 @@
    
     cell.textLabel.text = [self.bodyList objectAtIndex:row];
     [cell.textLabel setTextColor:[UIColor purpleColor]];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
 }

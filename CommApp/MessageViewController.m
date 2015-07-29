@@ -10,7 +10,14 @@
 #import "EaseMob.h"
 #import "NavigationBarMgr.h"
 
-@interface MessageViewController ()<UIAlertViewDelegate,EMChatManagerLoginDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource> //登录对话框响应
+#import <AVFoundation/AVFoundation.h>
+
+@interface MessageViewController ()<UIAlertViewDelegate,EMChatManagerLoginDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource,AVAudioRecorderDelegate,AVAudioPlayerDelegate> //登录对话框响应
+
+{
+    AVAudioRecorder *recorder;
+    AVAudioPlayer *player;
+}
 
 @property (retain,nonatomic) UITextField *usernameHuanXinTextField;
 
@@ -29,6 +36,10 @@
 @synthesize passwordHuanXinTextField=_passwordHuanXinTextField;
 @synthesize chatContentList=_chatContentList;
 
+@synthesize stopButton=_stopButton;
+@synthesize playButton=_playButton;
+@synthesize recordPauseButton=_recordPauseButton;
+
 
 
 - (void)viewDidLoad {
@@ -37,6 +48,7 @@
     [self addNavitionBar];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [self popUpLoginAndRegisterAlertView];
+    [self initAudio];
     
 }
 
@@ -46,7 +58,7 @@
 
 -(void)Initialize //数据初始化
 {
-    self.HuanXinChatView=[[UITableView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.25f, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.75f)];
+    self.HuanXinChatView=[[UITableView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*0.5f, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.75f)];
     [self.view addSubview:self.HuanXinChatView];
     self.HuanXinChatView.separatorStyle=NO;
     self.HuanXinChatView.delegate=self; //添加tableview控制器的委托方法
@@ -56,6 +68,36 @@
     self.chatNameList=[[NSMutableArray alloc]init];
     self.chatIsLocalList=[[NSMutableArray alloc]init];
     
+}
+
+-(void)initAudio
+{
+    [self.stopButton setEnabled:NO];
+    [self.playButton setEnabled:NO];
+    
+    NSArray *pathComponents=[NSArray arrayWithObjects://音频存放路径
+                             [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                             @"MyAudioDemo.m4a",
+                             nil];
+    NSURL *outputFileURL=[NSURL fileURLWithPathComponents:pathComponents];
+    
+    //启动音频session
+    AVAudioSession *session=[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    //定义音频设置
+    NSMutableDictionary *recordSetting=[[NSMutableDictionary alloc]init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];//录音格式
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];         //采样率
+    [recordSetting setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];           //录音通道数
+    
+    //录音初始化
+    recorder=[[AVAudioRecorder alloc]initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate=self;
+    recorder.meteringEnabled=YES;//开启音量检测
+    [recorder prepareToRecord];
+
 }
 
 -(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
@@ -345,6 +387,69 @@
 {
     return 50;
 }
+//-----------------------------------------------------------------
+//录音模块
+- (IBAction)recordPauseTapped:(id)sender
+{
+    if (player.playing)
+    {
+        [player stop];
+    }
+    
+    if (recorder.recording)
+    {
+        AVAudioSession *session=[AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        //开始录音
+        [recorder record];
+        [self.recordPauseButton setTitle:@"Pause "forState:UIControlStateNormal];
+        
+    }
+    else
+    {    //停止录音
+        [recorder pause];
+        [self.recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+    }
+    
+    [self.stopButton setEnabled:YES];
+    [self.playButton setEnabled:NO];
+}
+
+- (IBAction)stopTapped:(id)sender
+{
+    [recorder stop];
+    AVAudioSession *audioSession=[AVAudioSession sharedInstance];
+    [audioSession setActive:NO error:nil];
+}
+
+- (IBAction)playTapped:(id)sender
+{
+    if (!recorder.recording)
+    {
+        player=[[AVAudioPlayer alloc]initWithContentsOfURL:recorder.url error:nil];
+        [player setDelegate:self];
+        [player play];
+    }
+}
+
+//录音结束回调
+-(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
+{
+    [self.recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+    
+    [self.stopButton setEnabled:NO];
+    [self.playButton setEnabled:YES];
+}
+
+//录音播放结束回调
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Done" message: @"Finish playing the recording!"
+                                                delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+}
 
 
 
@@ -353,6 +458,9 @@
 {
     [_MessageTextField release];
     [_HuanXinChatView release];
+    [_recordPauseButton release];
+    [_stopButton release];
+    [_playButton release];
     [super dealloc];
 }
 @end
