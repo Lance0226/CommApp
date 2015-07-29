@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @interface MyInfoViewController : UIViewController
--(void)addNavitionBar;  //添加导航栏
 
+@property (nonatomic,retain) UIView* backgroundView;
+@property (nonatomic,retain) UITableView* settingTableView;
+-(void)addNavitionBar;//添加导航栏
+-(void)addBackgroundView;//添加背景色
 @end
