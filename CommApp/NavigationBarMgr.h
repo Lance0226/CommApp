@@ -20,5 +20,6 @@
 -(UINavigationBar*)getNavigationBar;
 -(void)setDelegate:(id)newdelegate;
 
+
 @end
 

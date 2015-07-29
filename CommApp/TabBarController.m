@@ -40,7 +40,8 @@
 }
 -(void)changeTabBarView
 {
-    self.tabBar.tintColor=[UIColor blackColor];
+    [self.tabBar setTintColor:[UIColor blackColor]];
+    [self.tabBar setBarTintColor:[UIColor purpleColor]];
     
     UITabBarItem *tabBarItem1 = [self.tabBar.items objectAtIndex:0];
     UITabBarItem *tabBarItem2 = [self.tabBar.items objectAtIndex:1];

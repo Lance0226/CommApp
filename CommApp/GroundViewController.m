@@ -27,6 +27,7 @@
 @synthesize nameList=_nameList;
 @synthesize titleList=_titleList;
 @synthesize timeList=_timeList;
+@synthesize portraitList=_portraitList;
 
 @synthesize inputStream=_inputStream;
 @synthesize outputStream=_outputStream;
@@ -69,6 +70,13 @@
     NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
     UINavigationBar *bar=[navBar getNavigationBar];
     [self.view addSubview:bar];
+    UIButton *genderBtn=[[UIButton alloc] initWithFrame:CGRectMake(0, bar.frame.size.height/6, bar.frame.size.width/7, bar.frame.size.height*0.85)];
+    [genderBtn setImage:[UIImage imageNamed:@"gender"] forState:UIControlStateNormal];
+    
+    UIButton *editBtn=[[UIButton alloc] initWithFrame:CGRectMake(bar.frame.size.width*0.85, bar.frame.size.height/6, bar.frame.size.width/8, bar.frame.size.height*0.85)];
+    [editBtn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+    [self.view addSubview:genderBtn];
+    [self.view addSubview:editBtn];
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -78,10 +86,16 @@
     self.nameList=[NSMutableArray arrayWithObjects:@"Lance",@"Tom",@"Jack",@"Adm",@"Rose",@"Terry",@"Dirk",nil];
     self.timeList=[NSMutableArray arrayWithObjects:@"1111",@"2222",@"3333",@"4444",@"5555",@"6666",@"7777",nil];
     self.titleList=[NSMutableArray arrayWithObjects:@"AAAAAAAA",@"BBBBBBB",@"CCCCCC",@"DDDD",@"EEEEE",@"FFFF",@"JJJJ",nil];
+    self.portraitList=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                   [UIImage imageNamed:@"head"],
+                                                                           nil];
     
     self.isHead=YES;
-    
-    
 }
 /*-------------------------------------------------------------------------------*/
 /*Initialize First View Page UI*/
@@ -95,6 +109,8 @@
 
 -(void)setMsgTableView
 {
+    self.MsgTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.view addSubview:self.MsgTableView];
     self.MsgTableView.scrollEnabled=YES;
     [self.MsgTableView setTableFooterView:[[UIView alloc]initWithFrame:CGRectZero]];
     self.MsgTableView.delegate=self;
@@ -112,6 +128,7 @@
     if (cell==nil)
     {
      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellWithIdentifier];
+    [cell setBackgroundColor:[UIColor blackColor]];
         
     CALayer *imgLayer=[self setImg];
     [cell.layer addSublayer:imgLayer];
@@ -123,13 +140,24 @@
     [cell.layer addSublayer:timeLayer];
     
     
-    CALayer *titleLayer=[self settitleAtRowIndex:row];
+    CALayer *titleLayer=[self setTitleAtRowIndex:row];
     [cell.layer addSublayer:titleLayer];
+        
+    CALayer *flowerLayer=[self setFlowerAtRowIndex:row]; //添加花
+    [cell.layer addSublayer:flowerLayer];
+        
+    CALayer *heartLayer=[self setHeartAtRowIndex:row];    //添加星
+    [cell.layer addSublayer:heartLayer];
+    
+    CALayer *starLayer=[self setStarAtRowIndex:row];
+    [cell.layer addSublayer:starLayer];
+    
         
     }
     
    
     cell.textLabel.text = [self.bodyList objectAtIndex:row];
+    [cell.textLabel setTextColor:[UIColor purpleColor]];
     
     return cell;
 }
@@ -144,41 +172,41 @@
     return 200;//Height of each segment in table view
 }
 
--(CALayer *)setImg
+-(CALayer *)setImg                                          //设置头像
 {
     CALayer *imgLayer=[CALayer layer];
-    [imgLayer setBackgroundColor:[UIColor purpleColor].CGColor];
-    [imgLayer setFrame:CGRectMake(20, 10, 30, 30)];
-    [imgLayer setCornerRadius:15];
+    [imgLayer setFrame:CGRectMake(20, 10, 35, 35)];
+    [imgLayer setContents:(id)[UIImage imageNamed:@"head"].CGImage];
+    [imgLayer setCornerRadius:30];
     return imgLayer;
 }
 
--(CALayer *)setNameAtRowIndex:(NSUInteger )rowIndex
+-(CALayer *)setNameAtRowIndex:(NSUInteger )rowIndex       //设置用户名
 {
     CATextLayer *nameLayer=[[CATextLayer alloc]init];
-    [nameLayer setFont:@"HelveticaNeue"];
+    [nameLayer setFont:@"Helvetica-Bold"];
     [nameLayer setFontSize:15];
-    [nameLayer setFrame:CGRectMake(50, 15, 50, 30)];
+    [nameLayer setFrame:CGRectMake(75, 15, 50, 30)];
     [nameLayer setString:[self.nameList objectAtIndex:rowIndex]];
-    [nameLayer setAlignmentMode:kCAAlignmentCenter];
-    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
+    [nameLayer setAlignmentMode:kCAAlignmentLeft];
+    [nameLayer setForegroundColor:[[UIColor purpleColor] CGColor]];
     return nameLayer;
 }
 
--(CALayer *)setTimeAtRowIndex:(NSUInteger )rowIndex
+-(CALayer *)setTimeAtRowIndex:(NSUInteger )rowIndex      //设置时间
 {
     CATextLayer *nameLayer=[[CATextLayer alloc]init];
     [nameLayer setFont:@"HelveticaNeue"];
     [nameLayer setFontSize:10];
-    [nameLayer setFrame:CGRectMake(50, 32, 30, 20)];
+    [nameLayer setFrame:CGRectMake(75, 32, 30, 20)];
     [nameLayer setString:[self.timeList objectAtIndex:rowIndex]];
-    [nameLayer setAlignmentMode:kCAAlignmentCenter];
-    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
+    [nameLayer setAlignmentMode:kCAAlignmentLeft];
+    [nameLayer setForegroundColor:[[UIColor purpleColor] CGColor]];
     return nameLayer;
 }
 
 
--(CALayer *)settitleAtRowIndex:(NSUInteger )rowIndex
+-(CALayer *)setTitleAtRowIndex:(NSUInteger )rowIndex    //设置题目
 {
     CATextLayer *nameLayer=[[CATextLayer alloc]init];
     [nameLayer setFont:@"HelveticaNeue"];
@@ -188,6 +216,33 @@
     [nameLayer setAlignmentMode:kCAAlignmentCenter];
     [nameLayer setForegroundColor:[[UIColor blackColor] CGColor]];
     return nameLayer;
+}
+
+-(CALayer *)setFlowerAtRowIndex:(NSInteger)rowIndex  //设置花
+{
+    CALayer *awardrImgLayer=[CALayer layer];
+    [awardrImgLayer setFrame:CGRectMake(20, 170, 20, 20)];
+    [awardrImgLayer setContents:(id)[UIImage imageNamed:@"flower"].CGImage];
+    [awardrImgLayer setCornerRadius:30];
+    return awardrImgLayer;
+}
+
+-(CALayer *)setHeartAtRowIndex:(NSInteger)rowIndex  //设置心
+{
+    CALayer *awardrImgLayer=[CALayer layer];
+    [awardrImgLayer setFrame:CGRectMake(120, 170, 20, 20)];
+    [awardrImgLayer setContents:(id)[UIImage imageNamed:@"heart"].CGImage];
+    [awardrImgLayer setCornerRadius:30];
+    return awardrImgLayer;
+}
+
+-(CALayer *)setStarAtRowIndex:(NSInteger)rowIndex  //设置星
+{
+    CALayer *awardrImgLayer=[CALayer layer];
+    [awardrImgLayer setFrame:CGRectMake(220, 170, 20, 20)];
+    [awardrImgLayer setContents:(id)[UIImage imageNamed:@"star"].CGImage];
+    [awardrImgLayer setCornerRadius:30];
+    return awardrImgLayer;
 }
 
 /*socket*/

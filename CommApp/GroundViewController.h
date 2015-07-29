@@ -14,6 +14,7 @@
 @property (strong,nonatomic) NSMutableArray *nameList;//姓名列表
 @property (strong,nonatomic) NSMutableArray *timeList;//时间列表
 @property (strong,nonatomic) NSMutableArray *titleList;//标题列表
+@property (strong,nonatomic) NSMutableArray *portraitList;//头像列表
 
 @property (strong,nonatomic) NSInputStream *inputStream;//网络输入流
 @property (strong,nonatomic) NSOutputStream *outputStream;//网络输出流
@@ -30,7 +31,7 @@
 -(CALayer *)setImg;
 -(CALayer *)setNameAtRowIndex:(NSUInteger)rowIndex;
 -(CALayer *)setTimeAtRowIndex:(NSUInteger)rowIndex;
--(CALayer *)settitleAtRowIndex:(NSUInteger )rowIndex;
+-(CALayer *)setTitleAtRowIndex:(NSUInteger )rowIndex;
 
 
 - (void)initNetworkCommunication;
