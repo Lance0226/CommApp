@@ -68,15 +68,23 @@
 -(void)addNavitionBar
 {
     NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
-    UINavigationBar *bar=[navBar getNavigationBar];
-    [self.view addSubview:bar];
-    UIButton *genderBtn=[[UIButton alloc] initWithFrame:CGRectMake(0, bar.frame.size.height/6, bar.frame.size.width/7, bar.frame.size.height*0.85)];
-    [genderBtn setImage:[UIImage imageNamed:@"gender"] forState:UIControlStateNormal];
+    self.bar=[navBar getNavigationBar];
+    [self.view addSubview:self.bar];
+    self.genderBtn=[[UIButton alloc] initWithFrame:CGRectMake(0, self.bar.frame.size.height/6, self.bar.frame.size.width/7, self.bar.frame.size.height*0.85)];
+    [self.genderBtn setImage:[UIImage imageNamed:@"gender"] forState:UIControlStateNormal];
+    [self.genderBtn addTarget:self action:@selector(selectSearchGender) forControlEvents:UIControlEventTouchDown];
     
-    UIButton *editBtn=[[UIButton alloc] initWithFrame:CGRectMake(bar.frame.size.width*0.85, bar.frame.size.height/6, bar.frame.size.width/8, bar.frame.size.height*0.85)];
-    [editBtn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-    [self.view addSubview:genderBtn];
-    [self.view addSubview:editBtn];
+    self.editBtn=[[UIButton alloc] initWithFrame:CGRectMake(self.bar.frame.size.width*0.85, self.bar.frame.size.height/6, self.bar.frame.size.width/8, self.bar.frame.size.height*0.85)];
+    [self.editBtn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+    [self.view addSubview:self.genderBtn];
+    [self.view addSubview:self.editBtn];
+}
+
+-(void)selectSearchGender
+{
+    UIView* genderView=[[UIView alloc]initWithFrame:CGRectMake(0,self.bar.frame.size.height+5, self.genderBtn.frame.size.width*2,self.genderBtn.frame.size.height*2)];
+    [genderView setBackgroundColor:[UIColor purpleColor]];
+    [self.view addSubview:genderView];
 }
 
 /*--------------------------------------------------------------------------------*/
