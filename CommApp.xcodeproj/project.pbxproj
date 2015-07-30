@@ -24,6 +24,7 @@
 		F7E0FBC41B540B7200A44982 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC11B540B7200A44982 /* MessageViewController.m */; };
 		F7E0FBC91B540B8100A44982 /* DiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E0FBC61B540B8100A44982 /* DiscoveryViewController.m */; };
 		F7E2F68F1B59EC220097677B /* Test.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E2F68E1B59EC220097677B /* Test.pb.m */; };
+		F7E4E6E71B6A72A000E7535A /* F3BarGauge.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E4E6E61B6A72A000E7535A /* F3BarGauge.m */; };
 		F8C232B4BEADD25BB61FE4E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF697D7250E7EC0E28ABA24 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,8 @@
 		F7E0FBC61B540B8100A44982 /* DiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoveryViewController.m; sourceTree = "<group>"; };
 		F7E2F68D1B59EC220097677B /* Test.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.pb.h; sourceTree = "<group>"; };
 		F7E2F68E1B59EC220097677B /* Test.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.pb.m; sourceTree = "<group>"; };
+		F7E4E6E51B6A72A000E7535A /* F3BarGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F3BarGauge.h; sourceTree = "<group>"; };
+		F7E4E6E61B6A72A000E7535A /* F3BarGauge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F3BarGauge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +222,7 @@
 		F7E0FB901B540AAA00A44982 /* CommApp */ = {
 			isa = PBXGroup;
 			children = (
+				F7E4E6E41B6A726000E7535A /* VoiceColor */,
 				7EB8B1EA1B5FAC3700F2B514 /* NavigationBar */,
 				F7DF3ECA1B5BFD8100C9C6E9 /* TabBar */,
 				F7DF3ECE1B5C001D00C9C6E9 /* CoreDataFiles */,
@@ -263,6 +267,15 @@
 				F7E0FBAF1B540AAB00A44982 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F7E4E6E41B6A726000E7535A /* VoiceColor */ = {
+			isa = PBXGroup;
+			children = (
+				F7E4E6E51B6A72A000E7535A /* F3BarGauge.h */,
+				F7E4E6E61B6A72A000E7535A /* F3BarGauge.m */,
+			);
+			name = VoiceColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,6 +415,7 @@
 			files = (
 				F7DF3ED41B5C017300C9C6E9 /* CoreDataExec.m in Sources */,
 				F7E0FBC41B540B7200A44982 /* MessageViewController.m in Sources */,
+				F7E4E6E71B6A72A000E7535A /* F3BarGauge.m in Sources */,
 				F7E0FB971B540AAA00A44982 /* AppDelegate.m in Sources */,
 				F7E0FB9A1B540AAA00A44982 /* CommApp.xcdatamodeld in Sources */,
 				7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */,
