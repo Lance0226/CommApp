@@ -8,6 +8,7 @@
 
 #import "TabBarController.h"
 #import "EditViewController.h"
+#import "NavigationBarMgr.h"
 
 @interface TabBarController ()
 @property (retain, nonatomic) IBOutlet UITabBar *m_tabBarView;
@@ -157,6 +158,7 @@
 
 -(void)displayInputFiled
 {
+    NSLog(@"AAA");
     
     [self performSegueWithIdentifier:@"edit_segue" sender:self];
 }

@@ -23,7 +23,6 @@
     [[EaseMob sharedInstance]registerSDKWithAppKey:@"lance0226#chatdemo" apnsCertName:@"chatdemo"];
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     //加载导航栏单例
-    [NavigationBarMgr sharedInstance];
     return YES;
 }
 

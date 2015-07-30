@@ -11,8 +11,7 @@
 -(NSString *)setNavigationBarTitle;   //委托方法，自定义导航栏名字
 @end
 
-@interface NavigationBarMgr : UINavigationBar
-{
+@interface NavigationBarMgr : UINavigationBar{
   id delegate;
 }
 @property (nonatomic,retain)UINavigationBar *navigationBar;//设置导航栏

@@ -11,14 +11,14 @@
 
 @interface EditViewController : UIViewController<UITextViewDelegate>
 
-@property (nonatomic,strong)UINavigationBar *navigationBar;
-@property (nonatomic,strong) UITextView *titleInputField;
-@property (nonatomic,strong) UITextView *contentInputField;
+@property (nonatomic,retain)UINavigationBar *navigationBar;  //导航栏
+@property (nonatomic,retain) UITextView *titleInputField;    //题目输入框
+@property (nonatomic,retain) UITextView *contentInputField;  //内容输入框
+@property (nonatomic,retain)UIButton *returnBtn;             //返回按钮
 
-@property CGFloat accumWidth;
+@property (nonatomic,retain) UIView *inputView;             //输入区
 
--(void)initialize;
 -(void)addNavigationBar;
 -(void)addTextField;
--(void)addButtonWithTag:(NSInteger )tag andWidthIndex:(NSInteger)index;
+-(void)addInputZone;
 @end
