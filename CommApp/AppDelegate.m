@@ -16,22 +16,29 @@
 
 @implementation AppDelegate
 
+@synthesize SCREEN_HEIGHT=_SCREEN_HEIGHT;
+@synthesize SCREEN_WIDTH=_SCREEN_WIDTH;
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+#pragma mark - AppDelegate主体委托方法实现
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //加载环信应用实例
     [[EaseMob sharedInstance]registerSDKWithAppKey:@"lance0226#chatdemo" apnsCertName:@"chatdemo"];
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    //加载导航栏单例
+    self.SCREEN_WIDTH =[UIScreen mainScreen].bounds.size.width;
+    self.SCREEN_HEIGHT=[UIScreen mainScreen].bounds.size.height;
+    //定义全局变量
+    
+    
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)applicationWillResignActive:(UIApplication *)application
+{
 }
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
     [[EaseMob sharedInstance] applicationDidEnterBackground:application];
 }
 
@@ -48,7 +55,8 @@
     [self saveContext];
 }
 
-#pragma mark - Core Data stack
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+#pragma mark - CoreData方法实现
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;

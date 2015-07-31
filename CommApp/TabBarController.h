@@ -9,23 +9,30 @@
 #import <UIKit/UIKit.h>
 
 @interface TabBarController : UITabBarController
+//------------------------------------------------------------------------------------------
 
-/*<<<<<<< HEAD
-@property (nonatomic, strong) IBOutlet UIButton  *m_centerBtn; //Add button
-*/
-@property (nonatomic, retain) IBOutlet UIButton  *m_centerBtn;
-//The View that contains gouyigou and piaoliuping is displayed or not.
-@property (nonatomic,assign)           bool       m_isPopupViewDisplay;
-@property (nonatomic,retain) UIView               *m_popupView;
+#pragma mark - 声明TabBarController变量
+
+@property (retain, nonatomic) IBOutlet UITabBar  *tabBarView;                            //tabBar图层
+@property (nonatomic, retain)          UIButton  *tabBarCenterBtn;                       //tabBar中心加号按钮
+
+@property (nonatomic,retain)           UIView    *tabBarCenterBtnPopView;               //tabBar中心加号按钮弹出图层
+@property (nonatomic,assign)           bool       isTabBarCenterBtnPopViewDisplay;      //tabBar中心加号按钮弹出图层显示与否的标志位
 
 
+//-------------------------------------------------------------------------------------------
+#pragma mark - 声明TabBarController方法
 
+-(void)initialize;                                                                      //属性初始化
+-(void)changeTabBarViewApperance;                                                       //自定义tabBar外观
 
--(void)initialize;//Properties initialize.
--(void)buttonPressed:(id)sender;
--(void)changeTabBarView;
--(void)closePopupWindow;
--(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage*)btnImage HighlightedImage:(UIImage*)hlImage PopupView:(UIView * )popupView andCenter:(CGPoint )center;
+-(void)tabBarCenterBtnPressed:(id)sender;                                               //tabBar中心加号按钮被点击
+-(void)closeTabBarCenterBtnPopView;                                                     //关闭tabBar中心加号按钮
+-(void)addTarBarCenterBtnPopViewTag               :(NSInteger)tag                       //加载加号弹出图形
+                              NormalImage       :(UIImage*)btnImage                     //普遍
+                              HighlightedImage  :(UIImage*)hlImage
+                              PopupView         :(UIView * )popupView
+                              andCenter         :(CGPoint )center;
 -(void)buttonOnPopupView:(UIButton *)sender;
 
 

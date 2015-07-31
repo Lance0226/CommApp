@@ -11,23 +11,23 @@
 #import "NavigationBarMgr.h"
 
 @interface TabBarController ()
-@property (retain, nonatomic) IBOutlet UITabBar *m_tabBarView;
+
 
 @end
 
 @implementation TabBarController
 
-@synthesize m_tabBarView=_m_tabBarView;
-@synthesize m_popupView=_m_popupView;
+@synthesize tabBarView=_tabBarView;
+@synthesize tabBarCenterBtnPopView=_tabBarCenterBtnPopView;
 
-@synthesize m_centerBtn=_m_centerBtn;  //Plus Button
-@synthesize m_isPopupViewDisplay=_m_isPopupViewDisplay;
+@synthesize tabBarCenterBtn=_tabBarCenterBtn;  //Plus Button
+@synthesize isTabBarCenterBtnPopViewDisplay=_isTabBarCenterBtnPopViewDisplay;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialize];
-    [self changeTabBarView];
-    [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood_selected.png"] target:self action:@selector(buttonPressed:)];
+    [self changeTabBarViewApperance];
+    [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood_selected.png"] target:self action:@selector(tabBarCenterBtnPressed:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,9 +37,9 @@
 
 -(void)initialize
 {
-    self.m_isPopupViewDisplay=false;
+    self.isTabBarCenterBtnPopViewDisplay=false;
 }
--(void)changeTabBarView
+-(void)changeTabBarViewApperance
 {
     [self.tabBar setTintColor:[UIColor blackColor]];
     [self.tabBar setBarTintColor:[UIColor purpleColor]];
@@ -63,7 +63,7 @@
     
 }
 
--(void)addBtnOnPopupWindowWithTag:(NSInteger)tag NormalImage:(UIImage *)btnImage HighlightedImage:(UIImage *)hlImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
+-(void)addTarBarCenterBtnPopViewTag:(NSInteger)tag NormalImage:(UIImage *)btnImage HighlightedImage:(UIImage *)hlImage PopupView:(UIView *)popupView andCenter:(CGPoint)center
 {
     UIButton* popupBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     popupBtn.autoresizesSubviews=UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -100,23 +100,23 @@
     
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
-    button.layer.zPosition=1; //Make add button on the above layer
+    button.layer.zPosition=1; //设置加号在最上图层
     
     [self.view addSubview:button];
 }
 
 
-- (void)buttonPressed:(id)sender
+- (void)tabBarCenterBtnPressed:(id)sender
 {
-    if (self.m_isPopupViewDisplay==false)
+    if (self.isTabBarCenterBtnPopViewDisplay==false)
     {
         [self showPopupWindow];
-        self.m_isPopupViewDisplay=true;
+        self.isTabBarCenterBtnPopViewDisplay=true;
     }
     else
     {
-        [self closePopupWindow];
-        self.m_isPopupViewDisplay=false;
+        [self closeTabBarCenterBtnPopView];
+        self.isTabBarCenterBtnPopViewDisplay=false;
     }
     
     
@@ -135,20 +135,20 @@
 
 -(void)showPopupWindow
 {
-    self.m_popupView=[[UIView alloc]initWithFrame:CGRectMake(0, self.tabBar.center.y-self.tabBar.bounds.size.height-10.0f,[[UIScreen mainScreen]bounds].size.width, 35.0f)];
-    self.m_popupView.backgroundColor=[UIColor colorWithRed:42.0/255 green:0.0/255 blue:48.0/255 alpha:1];
-    [self.view addSubview:self.m_popupView];
+    self.tabBarCenterBtnPopView=[[UIView alloc]initWithFrame:CGRectMake(0, self.tabBar.center.y-self.tabBar.bounds.size.height-10.0f,[[UIScreen mainScreen]bounds].size.width, 35.0f)];
+    self.tabBarCenterBtnPopView.backgroundColor=[UIColor colorWithRed:42.0/255 green:0.0/255 blue:48.0/255 alpha:1];
+    [self.view addSubview:self.tabBarCenterBtnPopView];
  
-    [self addBtnOnPopupWindowWithTag:111 NormalImage:[UIImage imageNamed:@"gouyigou.png"] HighlightedImage:[UIImage imageNamed:@"gouyigou_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(-80.0f, 0.0f)];
+    [self addTarBarCenterBtnPopViewTag:111 NormalImage:[UIImage imageNamed:@"gouyigou.png"] HighlightedImage:[UIImage imageNamed:@"gouyigou_selected.png"] PopupView:self.tabBarCenterBtnPopView andCenter:CGPointMake(-80.0f, 0.0f)];
     
-    [self addBtnOnPopupWindowWithTag:222 NormalImage:[UIImage imageNamed:@"piaoliuping.png"] HighlightedImage:[UIImage imageNamed:@"piaoliuping_selected.png"] PopupView:self.m_popupView andCenter:CGPointMake(80.0f,0.0f)];
+    [self addTarBarCenterBtnPopViewTag:222 NormalImage:[UIImage imageNamed:@"piaoliuping.png"] HighlightedImage:[UIImage imageNamed:@"piaoliuping_selected.png"] PopupView:self.tabBarCenterBtnPopView andCenter:CGPointMake(80.0f,0.0f)];
     
 }
 
--(void)closePopupWindow
+-(void)closeTabBarCenterBtnPopView
 {
-    [self.m_popupView removeFromSuperview];
-    [self.m_popupView release];
+    [self.tabBarCenterBtnPopView removeFromSuperview];
+    [self.tabBarCenterBtnPopView release];
     UIButton *gouyigouBtn=(UIButton *)[self.view viewWithTag:111];
     UIButton *piaoliupingBtn=(UIButton *)[self.view viewWithTag:222];
     [gouyigouBtn removeFromSuperview];
@@ -164,9 +164,9 @@
 }
 
 - (void)dealloc {
-    [_m_tabBarView release];
-    [_m_popupView release];
-    [_m_centerBtn release];
+    [_tabBarView release];
+    [_tabBarCenterBtnPopView release];
+    [_tabBarCenterBtn release];
     [super dealloc];
 }
 
