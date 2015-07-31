@@ -17,13 +17,16 @@
 @end
 
 @implementation MyInfoViewController
+
 @synthesize backgroundView=_backgroundView;
 @synthesize settingTableView=_settingTableView;
+@synthesize appDelegate=_appDelegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[self initialize];
     [self addNavitionBar]; //添加导航栏
-    //[self addBackgroundView];
+    [self addBackgroundView];
     
     // Do any additional setup after loading the view, typically from a nib.
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc]
@@ -39,6 +42,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)initialize
+{
+    self.appDelegate=(AppDelegate*)[[UIApplication sharedApplication]delegate];
+    self.screenWidth=self.appDelegate.SCREEN_WIDTH;
+    self.screenHeight=self.appDelegate.SCREEN_HEIGHT;
+}
+
 -(void)addNavitionBar
 {
     NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
@@ -49,7 +59,7 @@
 
 -(void)addBackgroundView
 {
-    self.backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    self.backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,self.screenWidth, self.screenHeight)];
     [self.backgroundView setBackgroundColor:[UIColor blackColor]];
     [self.backgroundView.layer setZPosition:111];
     [self.view addSubview:self.backgroundView];
@@ -282,6 +292,11 @@
     [audioPlayer stop];
     NSLog(@"stopped");
     
+}
+
+-(void)dealloc
+{
+    [super dealloc];
 }
 
 

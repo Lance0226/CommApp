@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "F3BarGauge.h"
+#import "AppDelegate.h"
 
 @interface MyInfoViewController : UIViewController
 
@@ -31,11 +32,17 @@
     NSTimer *timerForPitch;
 }
 
+@property (nonatomic,retain) AppDelegate     *appDelegate;                            //设置appDelegate 用于获取全局变量
+@property (nonatomic,assign) CGFloat         screenWidth;                             //屏幕宽
+@property (nonatomic,assign) CGFloat         screenHeight;                            //屏幕长
 
-@property (nonatomic,retain) UIView* backgroundView;
-@property (nonatomic,retain) UITableView* settingTableView;
--(void)addNavitionBar;//添加导航栏
--(void)addBackgroundView;//添加背景色
+
+@property (nonatomic,retain) UIView          *backgroundView;
+@property (nonatomic,retain) UITableView     *settingTableView;
+
+-(void)initialize;                                                                   //初始化属性
+-(void)addNavitionBar;                                                               //添加导航栏
+-(void)addBackgroundView;                                                            //添加背景色
 
 @property (retain, nonatomic) IBOutlet UIImageView *imageView;
 @property (retain, nonatomic) IBOutlet UIProgressView *progressView;

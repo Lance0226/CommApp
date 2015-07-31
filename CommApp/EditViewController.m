@@ -16,6 +16,10 @@
 @end
 
 @implementation EditViewController
+
+@synthesize appDelegate;
+@synthesize screenHeight=_screenHeight;
+@synthesize screenWidth=_screenWidth;
 @synthesize titleInputField=_titleInputField;
 @synthesize contentInputField=_contentInputField;
 @synthesize returnBtn=_returnBtn;
@@ -24,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initialize];
     [self addNavigationBar];
     [self addTextField];
     [self addInputZone];
@@ -38,7 +43,15 @@
 
 
 //--------------------------------------------------
-//Navigation Bar Method
+#pragma mark - 勾一勾编辑页面导航栏方法实现
+
+-(void)initialize
+{
+    self.appDelegate=(AppDelegate*)[[UIApplication sharedApplication]delegate];
+    self.screenWidth=self.appDelegate.SCREEN_WIDTH;
+    self.screenHeight=self.appDelegate.SCREEN_HEIGHT;
+}
+
 -(void)addNavigationBar
 {   
     NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
@@ -67,13 +80,13 @@
 }
 */
 //---------------------------------------------------
-//Input Field
+#pragma mark - 勾一勾编辑页面绘制输入框
 -(void)addTextField
 {   //Set title field
     //获取导航栏单例
     NavigationBarMgr* navBar=[NavigationBarMgr sharedInstance];
     UINavigationBar *bar=[navBar getNavigationBar];
-    self.titleInputField=[[UITextView alloc]initWithFrame:CGRectMake(0,bar.frame.size.height, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height/10)];
+    self.titleInputField=[[UITextView alloc]initWithFrame:CGRectMake(0,bar.frame.size.height, self.screenWidth, self.screenHeight/10)];
     [self.titleInputField setDelegate:self];
     [self.titleInputField setBackgroundColor:[UIColor blackColor]];
     [self.titleInputField setFont:[UIFont boldSystemFontOfSize:16]];
@@ -85,7 +98,7 @@
     [self.titleInputField.layer setBorderColor:[UIColor purpleColor].CGColor];
     [self.view addSubview:self.titleInputField];
     
-    self.contentInputField=[[UITextView alloc]initWithFrame:CGRectMake(0,bar.frame.size.height+[[UIScreen mainScreen]bounds].size.height/10, [[UIScreen mainScreen]bounds].size.width,[UIScreen mainScreen].bounds.size.height-bar.frame.size.height-[UIScreen mainScreen].bounds.size.height/10)];
+    self.contentInputField=[[UITextView alloc]initWithFrame:CGRectMake(0,bar.frame.size.height+self.screenHeight/10, self.screenWidth,self.screenHeight*0.9f-bar.frame.size.height)];
     [self.contentInputField setDelegate:self];
     [self.contentInputField setBackgroundColor:[UIColor blackColor]];
     [self.contentInputField setFont:[UIFont boldSystemFontOfSize:16]];
@@ -124,7 +137,7 @@
 
 -(void)addInputZone
 {
-    self.inputView=[[UIView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height*14/15, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height/15)];
+    self.inputView=[[UIView alloc]initWithFrame:CGRectMake(0, self.screenHeight*14/15, self.screenWidth, self.screenHeight/15)];
     [self.inputView setBackgroundColor:[UIColor purpleColor]];
     [self.inputView.layer setZPosition:999];
     [self.view addSubview:self.inputView];
