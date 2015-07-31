@@ -42,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self Initialize];
+    [self addRect];
     [self addNavitionBar];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     [self popUpLoginAndRegisterAlertView];
@@ -66,6 +67,24 @@
     
 }
 
+-(void)addRect //由一个三角形和一个矩形组成一个对话框底层
+{
+    CAShapeLayer *triangle=[[CAShapeLayer alloc]init];
+    CAShapeLayer *rect=[[CAShapeLayer alloc]init];
+    UIBezierPath *path=[UIBezierPath new];
+    UIBezierPath *roundRectPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(20, 100, 200, 100) cornerRadius:5];
+    [path moveToPoint:CGPointMake(220,117)];
+    [path addLineToPoint:CGPointMake(227, 125)];
+    [path addLineToPoint:CGPointMake(220, 133)];
+    [path closePath];
+    [triangle setPath:[path CGPath]];
+    [rect setPath:[roundRectPath CGPath]];
+    [rect setFillColor:[[UIColor purpleColor] CGColor]];
+    [triangle setFillColor:[[UIColor purpleColor] CGColor]];
+    [triangle setZPosition:999];
+    [self.view.layer addSublayer:(CALayer*)triangle];
+    [self.view.layer addSublayer:(CALayer*)rect];
+}
 
 -(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
 {
