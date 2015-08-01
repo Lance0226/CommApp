@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -192,6 +193,25 @@
             </objects>
             <point key="canvasLocation" x="-1268.5" y="-557.5"/>
         </scene>
+        <!--Mutable Dialogue-->
+        <scene sceneID="48M-Vf-SEz">
+            <objects>
+                <viewController id="0wu-lf-yfH" customClass="MutableDialogue" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KoM-r7-WSP"/>
+                        <viewControllerLayoutGuide type="bottom" id="MSt-yJ-RaC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uGR-wi-xBO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zgo-r4-IN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1379.5" y="324.5"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -212,6 +232,7 @@
                         <segue destination="lT9-XF-IRl" kind="relationship" relationship="viewControllers" id="8Rp-l3-Ibj"/>
                         <segue destination="fZ8-QL-CMY" kind="relationship" relationship="viewControllers" id="hQg-yl-ZVm"/>
                         <segue destination="bgN-Uf-RCO" kind="presentation" identifier="edit_segue" id="yu1-3F-hY8"/>
+                        <segue destination="0wu-lf-yfH" kind="presentation" identifier="piaoliuping_segue" id="GHB-fV-hoi"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

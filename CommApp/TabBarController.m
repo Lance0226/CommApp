@@ -127,7 +127,7 @@
 {
     switch (btn.tag) {
         case 111:NSLog(@"Gouyigou"); [self displayInputFiled];break;     //when tag is 111,the click button is Gou yi Gou.
-        case 222:NSLog(@"piaoliuping");break;   //when tag is 222,the click button is piao liu ping.
+        case 222:NSLog(@"piaoliuping");[self piaoLiuPing];break;   //when tag is 222,the click button is piao liu ping.
         default:break;
     }
 }
@@ -161,6 +161,11 @@
     NSLog(@"AAA");
     
     [self performSegueWithIdentifier:@"edit_segue" sender:self];
+}
+
+-(void)piaoLiuPing
+{
+    [self performSegueWithIdentifier:@"piaoliuping_segue" sender:self];
 }
 
 - (void)dealloc {
