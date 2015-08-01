@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E501BF71B5F87D000FBAB4C /* EditViewController.m */; };
 		7EB8B1ED1B5FAC7300F2B514 /* NavigationBarMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB8B1EC1B5FAC7300F2B514 /* NavigationBarMgr.m */; };
-		F770D4981B6C9DF8004E485F /* MutableDialogue.m in Sources */ = {isa = PBXBuildFile; fileRef = F770D4971B6C9DF8004E485F /* MutableDialogue.m */; };
+		F770D4981B6C9DF8004E485F /* PiaoLiuPing.m in Sources */ = {isa = PBXBuildFile; fileRef = F770D4971B6C9DF8004E485F /* PiaoLiuPing.m */; };
 		F7DF3EC41B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */; };
 		F7DF3EC71B5BF69700C9C6E9 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3EC61B5BF69700C9C6E9 /* TabBarController.m */; };
 		F7DF3ED11B5C00B900C9C6E9 /* PlayerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F7DF3ED01B5C00B900C9C6E9 /* PlayerInfo.m */; };
@@ -47,8 +47,8 @@
 		7EB8B1EC1B5FAC7300F2B514 /* NavigationBarMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarMgr.m; sourceTree = "<group>"; };
 		854C9DF5B81676DE4FFDC951 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D61259E419BE13B7F5BC8667 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F770D4961B6C9DF8004E485F /* MutableDialogue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutableDialogue.h; sourceTree = "<group>"; };
-		F770D4971B6C9DF8004E485F /* MutableDialogue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutableDialogue.m; sourceTree = "<group>"; };
+		F770D4961B6C9DF8004E485F /* PIaoLiuPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIaoLiuPing.h; sourceTree = "<group>"; };
+		F770D4971B6C9DF8004E485F /* PiaoLiuPing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiaoLiuPing.m; sourceTree = "<group>"; };
 		F7D1D1581B630DF2008B4BA9 /* libEaseMobClientSDKLite_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEaseMobClientSDKLite_arm64.a; path = Pods/EaseMobSDK/EaseMobSDK/lib/libEaseMobClientSDKLite_arm64.a; sourceTree = "<group>"; };
 		F7DF3EC31B5BF01400C9C6E9 /* Images 21-57-01-653.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images 21-57-01-653.xcassets"; sourceTree = "<group>"; };
 		F7DF3EC51B5BF69700C9C6E9 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -137,13 +137,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F770D4951B6C9DD1004E485F /* MutableDialogue */ = {
+		F770D4951B6C9DD1004E485F /* PiaoliuPing */ = {
 			isa = PBXGroup;
 			children = (
-				F770D4961B6C9DF8004E485F /* MutableDialogue.h */,
-				F770D4971B6C9DF8004E485F /* MutableDialogue.m */,
+				F770D4961B6C9DF8004E485F /* PIaoLiuPing.h */,
+				F770D4971B6C9DF8004E485F /* PiaoLiuPing.m */,
 			);
-			name = MutableDialogue;
+			name = PiaoliuPing;
 			sourceTree = "<group>";
 		};
 		F7DF3EC81B5BFCB100C9C6E9 /* GourndPage */ = {
@@ -234,7 +234,7 @@
 		F7E0FB901B540AAA00A44982 /* CommApp */ = {
 			isa = PBXGroup;
 			children = (
-				F770D4951B6C9DD1004E485F /* MutableDialogue */,
+				F770D4951B6C9DD1004E485F /* PiaoliuPing */,
 				F7E4E6E41B6A726000E7535A /* VoiceColor */,
 				7EB8B1EA1B5FAC3700F2B514 /* NavigationBar */,
 				F7DF3ECA1B5BFD8100C9C6E9 /* TabBar */,
@@ -432,7 +432,7 @@
 				F7E0FB971B540AAA00A44982 /* AppDelegate.m in Sources */,
 				F7E0FB9A1B540AAA00A44982 /* CommApp.xcdatamodeld in Sources */,
 				7E501BF81B5F87D000FBAB4C /* EditViewController.m in Sources */,
-				F770D4981B6C9DF8004E485F /* MutableDialogue.m in Sources */,
+				F770D4981B6C9DF8004E485F /* PiaoLiuPing.m in Sources */,
 				F7E0FBC91B540B8100A44982 /* DiscoveryViewController.m in Sources */,
 				F7E0FB941B540AAA00A44982 /* main.m in Sources */,
 				F7E0FBC21B540B7200A44982 /* GroundViewController.m in Sources */,

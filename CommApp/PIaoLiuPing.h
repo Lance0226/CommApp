@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MutableDialogue : UIViewController<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic,retain) NSMutableArray *resultArray;
+@interface MutableDialogue : UIViewController
 
 @end

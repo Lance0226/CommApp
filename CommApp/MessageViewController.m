@@ -55,53 +55,23 @@
 
 -(void)Initialize //数据初始化
 {
-    self.HuanXinChatView=[[UITableView alloc] initWithFrame:CGRectMake(0,self.navBar.bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.75f)];
+    self.HuanXinChatView=[[UITableView alloc] initWithFrame:CGRectMake(0,self.navBar.bounds.size.height*2, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height*0.75f)];
     [self.view addSubview:self.HuanXinChatView];
     self.HuanXinChatView.separatorStyle=NO;
     self.HuanXinChatView.delegate=self; //添加tableview控制器的委托方法
     self.HuanXinChatView.dataSource=self;//添加tableview数据的委托方法
     
-    //self.chatContentList=[[NSMutableArray alloc]init];
-    //self.chatNameList=[[NSMutableArray alloc]init];
-    //self.chatIsLocalList=[[NSMutableArray alloc]init];
-    [self initData];
+    self.resultArray=[[NSMutableArray alloc]init];
+    
     
 }
 
--(void)initData
+-(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal//将消息组装成Dictionary,插入数组
 {
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"weixin",@"name",@"微信团队欢迎你。很高兴你开启了微信生活，期待能为你和朋友们带来愉快的沟通体检。",@"content", nil];
-    NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"rhl",@"name",@"hello",@"content", nil];
-    NSDictionary *dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"rhl",@"name",@"0",@"content", nil];
-    NSDictionary *dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"weixin",@"name",@"谢谢反馈，已收录。",@"content", nil];
-    NSDictionary *dict4 = [NSDictionary dictionaryWithObjectsAndKeys:@"rhl",@"name",@"0",@"content", nil];
-    NSDictionary *dict5 = [NSDictionary dictionaryWithObjectsAndKeys:@"weixin",@"name",@"谢谢反馈，已收录。",@"content", nil];
-    NSDictionary *dict6 = [NSDictionary dictionaryWithObjectsAndKeys:@"rhl",@"name",@"大数据测试，长数据测试，大数据测试，长数据测试，大数据测试，长数据测试，大数据测试，长数据测试，大数据测试，长数据测试，大数据测试，长数据测试。",@"content", nil];
-    
-    self.resultArray = [NSMutableArray arrayWithObjects:dict,dict1,dict2,dict3,dict4,dict5,dict6, nil];
+    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",nil];
+    [self.resultArray addObject:dict];
 }
 
-
-
--(void)addRect //由一个三角形和一个矩形组成一个对话框底层
-{
-    CAShapeLayer *triangle=[[CAShapeLayer alloc]init];
-    CAShapeLayer *rect=[[CAShapeLayer alloc]init];
-    UIBezierPath *path=[UIBezierPath new];
-    UIBezierPath *roundRectPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(20, 100, 200, 100) cornerRadius:5];
-    [path moveToPoint:CGPointMake(220,117)];
-    [path addLineToPoint:CGPointMake(227, 125)];
-    [path addLineToPoint:CGPointMake(220, 133)];
-    [path closePath];
-    [triangle setPath:[path CGPath]];
-    [rect setPath:[roundRectPath CGPath]];
-    [rect setFillColor:[[UIColor purpleColor] CGColor]];
-    [triangle setFillColor:[[UIColor purpleColor] CGColor]];
-    [triangle setZPosition:999];
-    [self.view.layer addSublayer:(CALayer*)triangle];
-    [self.view.layer addSublayer:(CALayer*)rect];
-}
 
 -(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
 {
@@ -301,98 +271,19 @@
 //添加发送信息
 -(void)addSenderInfo
 {
-    [self.chatNameList addObject:self.usernameHuanXinTextField.text];
-    [self.chatContentList addObject:self.MessageTextField.text];
-    [self.chatIsLocalList addObject:[[NSNumber alloc]initWithBool:YES]];
+    [self addMsgDataWithName:self.usernameHuanXinTextField.text Content:self.MessageTextField.text IsLocal:YES];
+   
+    //[self.chatIsLocalList addObject:[[NSNumber alloc]initWithBool:YES]];
 }
 
 //添加接受信息
 -(void)addReceiverInfo:(EMMessage *)message
 {
     id<IEMMessageBody> messagebody=[message.messageBodies lastObject];//由于只传一个messagebody对象
-    [self.chatContentList addObject:((EMTextMessageBody *)messagebody).text];
-    [self.chatNameList addObject:message.from];
-    [self.chatIsLocalList addObject:[[NSNumber alloc] initWithBool:NO]];
+    [self addMsgDataWithName:message.from Content:((EMTextMessageBody *)messagebody).text IsLocal:NO];
 }
 
-//----------------------------------------------
-/*
-#pragma mark - "TabelViewController Method"
-//对话列表
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellWithIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
-    NSUInteger row = [indexPath row];
-    if (cell==nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellWithIdentifier];
-        CALayer *nameLayer=[self setNameLayerWithRowIndex:row];
-        CALayer *contentLayer=[self setContentLayerWithRowIndex:row];
-        [cell.layer addSublayer:nameLayer];
-        [cell.layer addSublayer:contentLayer];
-    }
-    return cell;
-    
-}
-// 设置TableViewController的行数
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.chatContentList count];
-}
-//姓名框
--(CALayer*)setNameLayerWithRowIndex:(NSUInteger )rowIndex
-{
-    CATextLayer *nameLayer=[[CATextLayer alloc]init];
-    [nameLayer setFont:@"HelveticaNeue"];
-    [nameLayer setFontSize:15];
-    [nameLayer setString:[self.chatNameList objectAtIndex:rowIndex]];
-    [nameLayer setAlignmentMode:kCAAlignmentCenter];
-    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
-    
-    BOOL isLocal=[[self.chatIsLocalList objectAtIndex:rowIndex]boolValue];//查看数据是否来自本地
-    //本地显示在右，远端显示在左
-    if (isLocal==YES)
-    {
-        [nameLayer setFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-100, 0, 50, 30)];
-    }
-    else
-    {
-    [nameLayer setFrame:CGRectMake(20, 0, 50, 30)];
-    }
-    return nameLayer;
-}
-
-//对话内容框
--(CALayer*)setContentLayerWithRowIndex:(NSUInteger )rowIndex
-{
-    CATextLayer *nameLayer=[[CATextLayer alloc]init];
-    [nameLayer setFont:@"HelveticaNeue"];
-    [nameLayer setFontSize:15];
-    [nameLayer setString:[self.chatContentList objectAtIndex:rowIndex]];
-    [nameLayer setAlignmentMode:kCAAlignmentCenter];
-    [nameLayer setForegroundColor:[[UIColor grayColor] CGColor]];
-    
-    BOOL isLocal=[[self.chatIsLocalList objectAtIndex:rowIndex]boolValue];//查看数据是否来自本地
-    //本地显示在右，远端显示在左
-    if (isLocal==YES)
-    {
-        [nameLayer setFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-100, 30, 50, 30)];
-    }
-    else
-    {
-        [nameLayer setFrame:CGRectMake(20, 30, 50, 30)];
-    }
-    return nameLayer;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
- */
-//-----------------------------------------------------------------
+//-----------------------------------------------------
 //泡泡文本
 - (UIView *)bubbleView:(NSString *)text from:(BOOL)fromSelf withPosition:(int)position{
     
@@ -512,7 +403,7 @@
     
     //创建头像
     UIImageView *photo ;
-    if ([[dict objectForKey:@"name"]isEqualToString:@"rhl"]) {
+    if ([[dict objectForKey:@"isLocal"] isEqualToNumber:[[NSNumber alloc]initWithBool:YES]]) {
         photo = [[UIImageView alloc]initWithFrame:CGRectMake(320-60, 10, 50, 50)];
         [cell addSubview:photo];
         photo.image = [UIImage imageNamed:@"photo1"];
