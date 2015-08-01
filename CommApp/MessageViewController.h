@@ -11,6 +11,8 @@
 
 @interface MessageViewController : UIViewController
 
+@property (nonatomic,retain) NSMutableArray *resultArray;//对话列表数据
+@property (nonatomic,retain) UINavigationBar *navBar;
 
 -(void)addNavitionBar;  //添加导航栏
 -(void)popUpLoginAndRegisterAlertView;//点击该界面弹出登录框
