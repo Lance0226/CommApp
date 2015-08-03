@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MutableDialogue : UIViewController
+@interface PiaoLiuPing : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@property (retain, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
