@@ -39,17 +39,21 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     
-    [self dataInitialize];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [super viewDidLoad];
+        
+        [self dataInitialize];
+        
+        [self setSegControl];
+        
+        [self setMsgTableView];
+        
+        [self initNetworkCommunication];
+        
+        [self addNavitionBar];
+    });
     
-    [self setSegControl];
-    
-    [self setMsgTableView];
-    
-    [self initNetworkCommunication];
-    
-    [self addNavitionBar];
     
     
     //操作Core Data对象
@@ -90,21 +94,25 @@
 /*--------------------------------------------------------------------------------*/
  -(void)dataInitialize
 {
-    self.bodyList=[NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",nil];
-    self.nameList=[NSMutableArray arrayWithObjects:@"Lance",@"Tom",@"Jack",@"Adm",@"Rose",@"Terry",@"Dirk",nil];
-    self.timeList=[NSMutableArray arrayWithObjects:@"1111",@"2222",@"3333",@"4444",@"5555",@"6666",@"7777",nil];
-    self.titleList=[NSMutableArray arrayWithObjects:@"AAAAAAAA",@"BBBBBBB",@"CCCCCC",@"DDDD",@"EEEEE",@"FFFF",@"JJJJ",nil];
-    self.portraitList=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                   [UIImage imageNamed:@"head"],
-                                                                           nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        self.bodyList=[NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",nil];
+        self.nameList=[NSMutableArray arrayWithObjects:@"Lance",@"Tom",@"Jack",@"Adm",@"Rose",@"Terry",@"Dirk",nil];
+        self.timeList=[NSMutableArray arrayWithObjects:@"1111",@"2222",@"3333",@"4444",@"5555",@"6666",@"7777",nil];
+        self.titleList=[NSMutableArray arrayWithObjects:@"AAAAAAAA",@"BBBBBBB",@"CCCCCC",@"DDDD",@"EEEEE",@"FFFF",@"JJJJ",nil];
+        self.portraitList=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           [UIImage imageNamed:@"head"],
+                           nil];
+        
+        self.isHead=YES;
     
-    self.isHead=YES;
-}
+    });
+    
+   }
 /*-------------------------------------------------------------------------------*/
 /*Initialize First View Page UI*/
 -(void)setSegControl
