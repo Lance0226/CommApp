@@ -144,6 +144,8 @@
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];//选择图片
     
     [self addSenderInfo:eMessageBodyType_Image Name:self.HuanXinUserName Text:(NSString*)[NSNull null] Image:chosenImage];
+    [self updateHuanXinChatView];
+    
     EMChatImage *imgChat=[[EMChatImage alloc] initWithUIImage:chosenImage displayName:@"displayname"];
     EMImageMessageBody *body=[[EMImageMessageBody alloc] initWithChatObject:imgChat];
     EMMessage *message=[[EMMessage alloc]initWithReceiver:self.HuanXinUserName bodies:@[body]];
@@ -186,13 +188,17 @@
     {
         [self addMsgDataWithName:message.from ContentText:((EMTextMessageBody *)messagebody).text ContentImg:(UIImage*)[NSNull null] IsLocal:NO FileCategory:eMessageBodyType_Text];
     }
-    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image)//接受文件是图片
+    if (((EMImageMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image)//接受文件是图片
     {
-            NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
-            [self addMsgDataWithName:message.from ContentText:(NSString*)[NSNull null] ContentImg:[UIImage imageWithContentsOfFile:((EMImageMessageBody *)messagebody).thumbnailLocalPath] IsLocal:NO FileCategory:eMessageBodyType_Image];
+        {
+            //[NSThread sleepForTimeInterval:30];
+           // NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
+           //[self addMsgDataWithName:message.from ContentText:(NSString*)[NSNull null] ContentImg:[UIImage imageWithContentsOfFile:((EMImageMessageBody *)messagebody).thumbnailLocalPath] IsLocal:NO FileCategory:eMessageBodyType_Image];
     }
     
+    }
 }
+
 
 //-----------------------------------------------------
 //泡泡文本
@@ -289,10 +295,21 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = [self.resultArray objectAtIndex:indexPath.row];
-    UIFont *font = [UIFont systemFontOfSize:14];
-    CGSize size = [[dict objectForKey:@"content"] sizeWithFont:font constrainedToSize:CGSizeMake(180.0f, 20000.0f) lineBreakMode:NSLineBreakByWordWrapping];
+    if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Text]]) {
+        UIFont *font = [UIFont systemFontOfSize:14];
+        CGSize size = [[dict objectForKey:@"content"] sizeWithFont:font constrainedToSize:CGSizeMake(180.0f, 20000.0f) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        return size.height+44;
+    }
+    else if([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Image]])
+    {
+        return 200;
+    }
+    else
+    {
+        return 200;
+    }
     
-    return size.height+44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -312,8 +329,6 @@
     
     NSDictionary *dict = [self.resultArray objectAtIndex:indexPath.row];
     
-    
-    NSLog(@"ddddead%@",[dict objectForKey:@"isLocal"]);
     //创建头像
     UIImageView *photo ;
     if ([[dict objectForKey:@"isLocal"] isEqualToNumber:[[NSNumber alloc]initWithBool:YES]]) {
@@ -321,24 +336,56 @@
         [cell addSubview:photo];
         photo.image = [UIImage imageNamed:@"photo1"];
         
-        if ([[dict objectForKey:@"content"] isEqualToString:@"0"]) {
-            [cell addSubview:[self yuyinView:1 from:YES withIndexRow:indexPath.row withPosition:65]];
+        if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Text]])
+        {
+          NSLog(@"TXT TXT TXT");
+           if ([[dict objectForKey:@"content"]length]==0) {
+            //[cell addSubview:[self yuyinView:1 from:YES withIndexRow:indexPath.row withPosition:65]];
+              NSLog(@"字符串为空");
+              [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:YES withPosition:65]];
             
-            
-        }else{
-            [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:YES withPosition:65]];
+          }else{
+              [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:YES withPosition:65]];
+               }
         }
-        
+        else if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Image]])
+        {
+            NSLog(@"IMG IMG IMG");
+            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(320-160, 10, 150, 100)];
+            [imageView setImage:[dict objectForKey:@"img"]];
+            [cell addSubview:imageView];
+        }
+        else{
+            NSLog(@"ELSE ELSE ELSE");
+        }
     }else{
         photo = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 50, 50)];
         [cell addSubview:photo];
         photo.image = [UIImage imageNamed:@"photo"];
         
-        if ([[dict objectForKey:@"content"] isEqualToString:@"0"]) {
-            [cell addSubview:[self yuyinView:1 from:NO withIndexRow:indexPath.row withPosition:65]];
-        }else{
-            [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:NO withPosition:65]];
+        if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Text]])
+        {
+            NSLog(@"TXT TXT TXT");
+            if ([[dict objectForKey:@"content"]length]==0) {
+                //[cell addSubview:[self yuyinView:1 from:YES withIndexRow:indexPath.row withPosition:65]];
+                NSLog(@"字符串为空");
+                [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:NO withPosition:65]];
+                
+            }else{
+                [cell addSubview:[self bubbleView:[dict objectForKey:@"content"] from:NO withPosition:65]];
+            }
         }
+        else if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Image]])
+        {
+            NSLog(@"IMG IMG IMG");
+            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(80, 10, 150, 100)];
+            [imageView setImage:[dict objectForKey:@"img"]];
+            [cell addSubview:imageView];
+        }
+        else{
+            NSLog(@"ELSE ELSE ELSE");
+        }
+
     }
     
     return cell;
