@@ -26,6 +26,7 @@
 @property (retain, nonatomic)  UITableView *HuanXinChatView; //对话列表,使用的UITableView Controller
 
 @property (retain,nonatomic) NSMutableArray *chatContentList;  //对话内容数组
+@property (retain,nonatomic) NSMutableArray *chatFileCategory; //对话发送文件属性
 @property (retain,nonatomic) NSMutableArray *chatNameList;    //对话发出者姓名数组
 @property (retain,nonatomic) NSMutableArray *chatIsLocalList; //对话发出者是否来自本季，本机为YES,它机为NO
 
@@ -66,9 +67,9 @@
     
 }
 
--(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal//将消息组装成Dictionary,插入数组
+-(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal FileCategory:(MessageBodyType)fileCategory//将消息组装成Dictionary,插入数组
 {
-    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",nil];
+    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",[[NSNumber alloc]initWithLong:(long)fileCategory],@"fileCategory",nil];
     [self.resultArray addObject:dict];
 }
 
@@ -239,6 +240,9 @@
                 case eMessageBodyType_Text:
                     [self addReceiverInfo:message];
                     [self updateHuanXinChatView];
+                case eMessageBodyType_Image:
+                    [self addReceiverInfo:message];
+                    [self updateHuanXinChatView];
                 break;
                 default:break;
             }
@@ -248,9 +252,10 @@
     }
 }
 
-- (IBAction)HuanXINSend:(id)sender
+- (IBAction)HuanXinSend:(id)sender
 {
-    [self addSenderInfo];
+   
+    [self addSenderInfo:eMessageBodyType_Text];
     EMChatText *texChat=[[EMChatText alloc] initWithText:self.MessageTextField.text];
     EMTextMessageBody *body=[[EMTextMessageBody alloc]initWithChatObject:texChat];
     [self updateHuanXinChatView]; //刷新聊天列表
@@ -259,28 +264,53 @@
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
 }
+- (IBAction)HuanXinImgSend:(id)sender
+{
+    
+    [self addSenderInfo:eMessageBodyType_Image];
+    EMChatImage *imgChat=[[EMChatImage alloc] initWithUIImage:[UIImage imageNamed:@"head"] displayName:@"displayname"];
+    EMImageMessageBody *body=[[EMImageMessageBody alloc] initWithChatObject:imgChat];
+    EMMessage *message=[[EMMessage alloc]initWithReceiver:self.usernameHuanXinTextField.text bodies:@[body]];
+    [message setMessageType:eMessageTypeChat];//设置为单聊模式
+    [message setDeliveryState:eMessageDeliveryState_Delivered];
+    [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
+   
+}
 
 -(void)updateHuanXinChatView
 {
     [self.HuanXinChatView reloadData];//刷新列表
     [self.HuanXinChatView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    
 
 }
 
 
 //添加发送信息
--(void)addSenderInfo
+-(void)addSenderInfo:(MessageBodyType)fileCategory
 {
-    [self addMsgDataWithName:self.usernameHuanXinTextField.text Content:self.MessageTextField.text IsLocal:YES];
+    NSLog(@"777777777+%ld",fileCategory);
+    NSLog(@"888888+%@",self.usernameHuanXinTextField.text);
+     NSLog(@"9999+%@",self.MessageTextField.text);
+    [self addMsgDataWithName:self.usernameHuanXinTextField.text Content:self.MessageTextField.text IsLocal:YES FileCategory:fileCategory];
+
    
-    //[self.chatIsLocalList addObject:[[NSNumber alloc]initWithBool:YES]];
 }
 
 //添加接受信息
 -(void)addReceiverInfo:(EMMessage *)message
 {
+
     id<IEMMessageBody> messagebody=[message.messageBodies lastObject];//由于只传一个messagebody对象
-    [self addMsgDataWithName:message.from Content:((EMTextMessageBody *)messagebody).text IsLocal:NO];
+    
+    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Text) {
+        [self addMsgDataWithName:message.from Content:((EMTextMessageBody *)messagebody).text IsLocal:NO FileCategory:eMessageBodyType_Text];
+    }
+    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image) {
+        [self addMsgDataWithName:message.from Content:((EMImageMessageBody *)messagebody).thumbnailLocalPath IsLocal:NO FileCategory:eMessageBodyType_Image];
+        NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
+    }
+    
 }
 
 //-----------------------------------------------------
