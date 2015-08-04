@@ -12,7 +12,13 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MyInfoViewController ()
+#import "EaseMob.h"
+
+@interface MyInfoViewController ()<UIAlertViewDelegate,EMChatManagerLoginDelegate,EMChatManagerDelegate>//添加登录Delegate和提示框Delegate
+
+@property (retain,nonatomic) UITextField *usernameHuanXinTextField;
+
+@property (retain,nonatomic) UITextField *passwordHuanXinTextField;
 
 @end
 
@@ -28,6 +34,7 @@
     [self addNavitionBar]; //添加导航栏
     [self addBackgroundView];
     
+    
     // Do any additional setup after loading the view, typically from a nib.
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc]
                                              initWithTarget:self
@@ -35,6 +42,12 @@
     // you can control how many seconds before the gesture is recognized
     gesture.minimumPressDuration =0;
     [self.touchbutton addGestureRecognizer:gesture];
+    
+    
+    [self popUpLoginAndRegisterAlertView];//弹出登录框
+    
+    
+    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];  //用于登录委托
 }
 
 - (void)didReceiveMemoryWarning {
@@ -294,6 +307,160 @@
     
 }
 
+
+//--------------------------------------------------------------------------------------------
+#pragma mark --- Login Module
+-(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
+{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"登录或注册"
+                           
+                                                    message:@"请登录"
+                           
+                                                   delegate:self
+                           
+                                          cancelButtonTitle:@"取消"
+                           
+                                          otherButtonTitles:@"登录",@"注册",nil];
+    [alert setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
+    self.usernameHuanXinTextField=[alert textFieldAtIndex:0];
+    self.passwordHuanXinTextField=[alert textFieldAtIndex:1];
+    [alert setTag:1000];//设置登录框标签为1000
+    [alert show];
+    
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  //响应登录框提交事件
+{
+    if (alertView.tag==1000)
+    {
+        if (buttonIndex==1)
+        {
+            //登录
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:self.usernameHuanXinTextField.text
+                                                                password:self.passwordHuanXinTextField.text];
+        }
+        else if(buttonIndex==2)
+        {
+            //注册
+            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:self.usernameHuanXinTextField.text
+                                                                 password:self.passwordHuanXinTextField.text];
+        }
+        else
+        {
+            NSLog(@"错误");
+        }
+    }
+    else if(alertView.tag==2000)
+    {   //重新登录
+        if (buttonIndex==1)
+        {
+            [self popUpLoginAndRegisterAlertView];
+        }
+    }
+    else if(alertView.tag==3000)
+    {   //重新注册
+        if (buttonIndex==1)
+        {
+            [self popUpLoginAndRegisterAlertView];
+        }
+    }
+    else if(alertView.tag==4000)
+    {   //注册成功，登录
+        if (buttonIndex==1)
+        {
+            [self popUpLoginAndRegisterAlertView];
+        }
+    }
+    else
+    {
+        NSLog(@"ERROR");
+    }
+    
+    
+}
+
+
+-(void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
+{
+    NSLog(@"tttttttt+%@",error.description);
+    
+    
+    if (error!=nil)
+    {
+        NSLog(@"%ld",(long)error.description);//错误代码
+        //根据错误信息编号，弹出对应错误信息
+        NSString *errorChnDescription;
+        switch (error.errorCode)
+        {
+            case EMErrorNotFound:                          errorChnDescription=@"用户名不存在";break;
+            case EMErrorServerAuthenticationFailure:       errorChnDescription=@"用户名或密码错误";break;
+            default:                                       errorChnDescription=@"未知错误";break;
+        }
+        
+        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"登陆失败" message:errorChnDescription delegate:self
+                                               cancelButtonTitle:@"取消" otherButtonTitles:@"重新登录",nil];
+        [AlertView setTag:2000];
+        [AlertView show];
+    }
+    else
+    {
+        self.appDelegate.HuanXinUserName=self.usernameHuanXinTextField.text;
+        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"登陆成功" message:@"登录成功" delegate:self
+                                               cancelButtonTitle:@"好" otherButtonTitles:nil];
+        //登录成功，将用户名、密码提交给appdelegate作全局变量
+        [AlertView show];
+    }
+    
+    
+    NSEnumerator *loginKeyEnum=[loginInfo keyEnumerator];
+    for (NSObject *obj1 in loginKeyEnum)
+    {
+        NSLog(@"lllllllllllllllllllll+%@",obj1);
+    }
+    NSEnumerator *loginValueEnum=[loginInfo objectEnumerator];
+    for (NSObject *obj2 in loginValueEnum )
+    {
+        NSLog(@"fffffffffffffff+%@",obj2);
+    }
+}
+//委托方法 回调登陆状态信息
+
+//委托方法 回调注册账户信息
+-(void)didRegisterNewAccount:(NSString *)username password:(NSString *)password error:(EMError *)error
+{
+    if (error!=nil)
+    {
+        NSLog(@"%ld",(long)error.description);//错误代码
+        //根据错误信息编号，弹出对应错误信息
+        NSString *errorChnDescription;
+        switch (error.errorCode)
+        {
+            case EMErrorServerDuplicatedAccount: errorChnDescription=@"用户名已存在";break;
+            default:                             errorChnDescription=@"未知错误";break;
+        }
+        
+        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"注册失败" message:errorChnDescription delegate:self
+                                               cancelButtonTitle:@"好" otherButtonTitles:@"重新注册",nil];
+        [AlertView setTag:3000];
+        [AlertView show];
+        NSLog(@"注册失败");
+        
+    }
+    else
+    {
+        UIAlertView *scussessAlertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:@"恭喜您注册成为勾勾会员" delegate:self
+                                                       cancelButtonTitle:@"好" otherButtonTitles:@"登录",nil];
+        [scussessAlertView setTag:4000];
+        [scussessAlertView show];
+        NSLog(@"注册成功");
+    }
+    
+    
+}
+
+
+//--------------------------------------------------------------------------------------------
 -(void)dealloc
 {
     [super dealloc];

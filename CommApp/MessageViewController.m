@@ -12,16 +12,14 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface MessageViewController ()<UIAlertViewDelegate,EMChatManagerLoginDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource,AVAudioRecorderDelegate,AVAudioPlayerDelegate> //登录对话框响应
+@interface MessageViewController ()<UIAlertViewDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource> //登录对话框响应
 
 {
     AVAudioRecorder *recorder;
     AVAudioPlayer *player;
 }
 
-@property (retain,nonatomic) UITextField *usernameHuanXinTextField;
 
-@property (retain,nonatomic) UITextField *passwordHuanXinTextField;
 @property (retain, nonatomic) IBOutlet UITextField *MessageTextField;
 @property (retain, nonatomic)  UITableView *HuanXinChatView; //对话列表,使用的UITableView Controller
 
@@ -33,8 +31,6 @@
 @end
 
 @implementation MessageViewController
-@synthesize usernameHuanXinTextField=_usernameHuanXinTextField;
-@synthesize passwordHuanXinTextField=_passwordHuanXinTextField;
 @synthesize chatContentList=_chatContentList;
 
 
@@ -46,7 +42,6 @@
     [self Initialize];
     //[self addRect];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    [self popUpLoginAndRegisterAlertView];
     
 }
 
@@ -64,86 +59,11 @@
     
     self.resultArray=[[NSMutableArray alloc]init];
     
-    
-}
-
--(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal FileCategory:(MessageBodyType)fileCategory//将消息组装成Dictionary,插入数组
-{
-    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",[[NSNumber alloc]initWithLong:(long)fileCategory],@"fileCategory",nil];
-    [self.resultArray addObject:dict];
-}
-
-
--(void)popUpLoginAndRegisterAlertView  //输入用户名密码登录
-{
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"登录或注册"
-                           
-                                                      message:@"请登录"
-                           
-                                                      delegate:self
-                           
-                                                      cancelButtonTitle:@"取消"
-                           
-                                                      otherButtonTitles:@"登录",@"注册",nil];
-    [alert setAlertViewStyle:UIAlertViewStyleLoginAndPasswordInput];
-    self.usernameHuanXinTextField=[alert textFieldAtIndex:0];
-    self.passwordHuanXinTextField=[alert textFieldAtIndex:1];
-    [alert setTag:1000];//设置登录框标签为1000
-    [alert show];
-    
-
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  //响应登录框提交事件
-{
-    if (alertView.tag==1000)
-    {
-           if (buttonIndex==1)
-           {
-             //登录
-             [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:self.usernameHuanXinTextField.text
-                                                                 password:self.passwordHuanXinTextField.text];
-           }
-          else if(buttonIndex==2)
-          {
-             //注册
-             [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:self.usernameHuanXinTextField.text
-                                                                 password:self.passwordHuanXinTextField.text];
-          }
-          else
-          {
-              NSLog(@"错误");
-          }
-     }
-    else if(alertView.tag==2000)
-    {   //重新登录
-        if (buttonIndex==1)
-        {
-            [self popUpLoginAndRegisterAlertView];
-        }
-    }
-    else if(alertView.tag==3000)
-    {   //重新注册
-        if (buttonIndex==1)
-        {
-            [self popUpLoginAndRegisterAlertView];
-        }
-    }
-    else if(alertView.tag==4000)
-    {   //注册成功，登录
-        if (buttonIndex==1)
-        {
-            [self popUpLoginAndRegisterAlertView];
-        }
-    }
-    else
-    {
-        NSLog(@"ERROR");
-    }
+    self.appDelegate=(AppDelegate*)[[UIApplication sharedApplication]delegate];
+    self.HuanXinUserName=self.appDelegate.HuanXinUserName;
     
     
 }
-
 
 -(void)addNavitionBar
 {
@@ -153,82 +73,13 @@
 }
 
 
-//委托方法 回调登陆状态信息
--(void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
+-(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal FileCategory:(MessageBodyType)fileCategory//将消息组装成Dictionary,插入数组
 {
-    
-    NSLog(@"tttttttt+%@",error.description);
-    
-    
-    if (error!=nil)
-    {
-        NSLog(@"%ld",(long)error.description);//错误代码
-        //根据错误信息编号，弹出对应错误信息
-        NSString *errorChnDescription;
-        switch (error.errorCode)
-        {
-                case EMErrorNotFound:                          errorChnDescription=@"用户名不存在";break;
-                case EMErrorServerAuthenticationFailure:       errorChnDescription=@"用户名或密码错误";break;
-                default:                                       errorChnDescription=@"未知错误";break;
-        }
-        
-        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"登陆失败" message:errorChnDescription delegate:self
-                                                    cancelButtonTitle:@"取消" otherButtonTitles:@"重新登录",nil];
-        [AlertView setTag:2000];
-        [AlertView show];
-    }
-    else
-    {
-        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"登陆成功" message:@"登录成功" delegate:self
-                                               cancelButtonTitle:@"好" otherButtonTitles:nil];
-        [AlertView show];
-    }
-   
-    
-    NSEnumerator *loginKeyEnum=[loginInfo keyEnumerator];
-    for (NSObject *obj1 in loginKeyEnum)
-    {
-        NSLog(@"lllllllllllllllllllll+%@",obj1);
-    }
-    NSEnumerator *loginValueEnum=[loginInfo objectEnumerator];
-    for (NSObject *obj2 in loginValueEnum )
-    {
-        NSLog(@"fffffffffffffff+%@",obj2);
-    }
+    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",[[NSNumber alloc]initWithLong:(long)fileCategory],@"fileCategory",nil];
+    [self.resultArray addObject:dict];
 }
 
-//委托方法 回调注册账户信息
--(void)didRegisterNewAccount:(NSString *)username password:(NSString *)password error:(EMError *)error
-{
-    if (error!=nil)
-    {
-        NSLog(@"%ld",(long)error.description);//错误代码
-        //根据错误信息编号，弹出对应错误信息
-        NSString *errorChnDescription;
-        switch (error.errorCode)
-        {
-                case EMErrorServerDuplicatedAccount: errorChnDescription=@"用户名已存在";break;
-                default:                             errorChnDescription=@"未知错误";break;
-        }
-        
-        UIAlertView *AlertView=[[UIAlertView alloc]initWithTitle:@"注册失败" message:errorChnDescription delegate:self
-                                                       cancelButtonTitle:@"好" otherButtonTitles:@"重新注册",nil];
-        [AlertView setTag:3000];
-        [AlertView show];
-        NSLog(@"注册失败");
 
-    }
-    else
-    {
-        UIAlertView *scussessAlertView=[[UIAlertView alloc]initWithTitle:@"注册成功" message:@"恭喜您注册成为勾勾会员" delegate:self
-                                                       cancelButtonTitle:@"好" otherButtonTitles:@"登录",nil];
-        [scussessAlertView setTag:4000];
-        [scussessAlertView show];
-        NSLog(@"注册成功");
-    }
-    
-   
-}
 
 -(void)didReceiveMessage:(EMMessage *)message
 {   //根据消息结构体，确定聊天消息种类
@@ -240,6 +91,7 @@
                 case eMessageBodyType_Text:
                     [self addReceiverInfo:message];
                     [self updateHuanXinChatView];
+                break;
                 case eMessageBodyType_Image:
                     [self addReceiverInfo:message];
                     [self updateHuanXinChatView];
@@ -259,7 +111,7 @@
     EMChatText *texChat=[[EMChatText alloc] initWithText:self.MessageTextField.text];
     EMTextMessageBody *body=[[EMTextMessageBody alloc]initWithChatObject:texChat];
     [self updateHuanXinChatView]; //刷新聊天列表
-    EMMessage *message=[[EMMessage alloc]initWithReceiver:self.usernameHuanXinTextField.text bodies:@[body]];
+    EMMessage *message=[[EMMessage alloc]initWithReceiver:self.HuanXinUserName bodies:@[body]];
     [message setMessageType:eMessageTypeChat]; //设置为单聊模式
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
@@ -270,7 +122,7 @@
     [self addSenderInfo:eMessageBodyType_Image];
     EMChatImage *imgChat=[[EMChatImage alloc] initWithUIImage:[UIImage imageNamed:@"head"] displayName:@"displayname"];
     EMImageMessageBody *body=[[EMImageMessageBody alloc] initWithChatObject:imgChat];
-    EMMessage *message=[[EMMessage alloc]initWithReceiver:self.usernameHuanXinTextField.text bodies:@[body]];
+    EMMessage *message=[[EMMessage alloc]initWithReceiver:self.HuanXinUserName bodies:@[body]];
     [message setMessageType:eMessageTypeChat];//设置为单聊模式
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
@@ -289,10 +141,8 @@
 //添加发送信息
 -(void)addSenderInfo:(MessageBodyType)fileCategory
 {
-    NSLog(@"777777777+%ld",fileCategory);
-    NSLog(@"888888+%@",self.usernameHuanXinTextField.text);
-     NSLog(@"9999+%@",self.MessageTextField.text);
-    [self addMsgDataWithName:self.usernameHuanXinTextField.text Content:self.MessageTextField.text IsLocal:YES FileCategory:fileCategory];
+
+    [self addMsgDataWithName:self.HuanXinUserName Content:self.MessageTextField.text IsLocal:YES FileCategory:fileCategory];
 
    
 }
@@ -308,7 +158,6 @@
     }
     if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image) {
         [self addMsgDataWithName:message.from Content:((EMImageMessageBody *)messagebody).thumbnailLocalPath IsLocal:NO FileCategory:eMessageBodyType_Image];
-        NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
     }
     
 }

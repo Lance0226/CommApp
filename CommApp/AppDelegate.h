@@ -18,6 +18,8 @@
 @property (readwrite,assign,nonatomic) CGFloat SCREEN_WIDTH;                                              //屏幕宽度
 @property (readwrite,assign,nonatomic) CGFloat SCREEN_HEIGHT;                                             //屏幕高度
 
+@property (readwrite,retain,nonatomic) NSString *HuanXinUserName;                                        //登录用户名
+
 
 //CoreData部分
 

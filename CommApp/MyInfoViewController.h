@@ -59,4 +59,7 @@
 -(IBAction) stopRecording;
 -(IBAction) playRecording;
 -(IBAction) stopPlaying;
+
+//LogIn
+-(void)popUpLoginAndRegisterAlertView;//点击该界面弹出登录框
 @end

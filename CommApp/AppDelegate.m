@@ -16,8 +16,6 @@
 
 @implementation AppDelegate
 
-@synthesize SCREEN_HEIGHT=_SCREEN_HEIGHT;
-@synthesize SCREEN_WIDTH=_SCREEN_WIDTH;
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 #pragma mark - AppDelegate主体委托方法实现
@@ -28,6 +26,8 @@
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     self.SCREEN_WIDTH =[UIScreen mainScreen].bounds.size.width;
     self.SCREEN_HEIGHT=[UIScreen mainScreen].bounds.size.height;
+    
+    self.HuanXinUserName=[[NSString alloc]init];
     //定义全局变量
     
     
