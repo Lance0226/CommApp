@@ -12,7 +12,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface MessageViewController ()<UIAlertViewDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource> //登录对话框响应
+@interface MessageViewController ()<UIAlertViewDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>//登录对话框响应  从相册选择图片
 
 {
     AVAudioRecorder *recorder;
@@ -73,9 +73,19 @@
 }
 
 
--(void)addMsgDataWithName:(NSString *)name Content:(NSString*)content  IsLocal:(BOOL)isLocal FileCategory:(MessageBodyType)fileCategory//将消息组装成Dictionary,插入数组
+-(void)addMsgDataWithName:(NSString *)name ContentText:(NSString*)contentText ContentImg:(UIImage*)contentImg IsLocal:(BOOL)isLocal FileCategory:(MessageBodyType)fileCategory//将消息组装成Dictionary,插入数组
 {
-    NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",content,@"content",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",[[NSNumber alloc]initWithLong:(long)fileCategory],@"fileCategory",nil];
+    
+    
+    //NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",contentText,@"content",contentImg,@"img",[[NSNumber alloc]initWithBool:isLocal],@"isLocal",[[NSNumber alloc]initWithLong:(long)fileCategory],@"fileCategory",nil];
+    
+    NSMutableDictionary *dict=[[NSMutableDictionary alloc]init];
+    [dict setObject:name forKey:@"name"];
+    [dict setObject:contentText forKey:@"content"];
+    [dict setObject:contentImg forKey:@"img"];
+    [dict setObject:[[NSNumber alloc] initWithBool:isLocal] forKey:@"isLocal"];
+    [dict setObject:[[NSNumber alloc]initWithLong:(long)fileCategory] forKey:@"fileCategory"];
+    
     [self.resultArray addObject:dict];
 }
 
@@ -107,7 +117,7 @@
 - (IBAction)HuanXinSend:(id)sender
 {
    
-    [self addSenderInfo:eMessageBodyType_Text];
+    [self addSenderInfo:eMessageBodyType_Text Name:self.HuanXinUserName Text:self.MessageTextField.text Image:(UIImage*)[NSNull null]];
     EMChatText *texChat=[[EMChatText alloc] initWithText:self.MessageTextField.text];
     EMTextMessageBody *body=[[EMTextMessageBody alloc]initWithChatObject:texChat];
     [self updateHuanXinChatView]; //刷新聊天列表
@@ -116,17 +126,38 @@
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
 }
+
+//发送图片
 - (IBAction)HuanXinImgSend:(id)sender
 {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
-    [self addSenderInfo:eMessageBodyType_Image];
-    EMChatImage *imgChat=[[EMChatImage alloc] initWithUIImage:[UIImage imageNamed:@"head"] displayName:@"displayname"];
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+//选择图片完成回调函数
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];//选择图片
+    
+    [self addSenderInfo:eMessageBodyType_Image Name:self.HuanXinUserName Text:(NSString*)[NSNull null] Image:chosenImage];
+    EMChatImage *imgChat=[[EMChatImage alloc] initWithUIImage:chosenImage displayName:@"displayname"];
     EMImageMessageBody *body=[[EMImageMessageBody alloc] initWithChatObject:imgChat];
     EMMessage *message=[[EMMessage alloc]initWithReceiver:self.HuanXinUserName bodies:@[body]];
     [message setMessageType:eMessageTypeChat];//设置为单聊模式
     [message setDeliveryState:eMessageDeliveryState_Delivered];
     [[EaseMob sharedInstance].chatManager sendMessage:message progress:nil error:nil];
-   
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
 }
 
 -(void)updateHuanXinChatView
@@ -139,25 +170,26 @@
 
 
 //添加发送信息
--(void)addSenderInfo:(MessageBodyType)fileCategory
+-(void)addSenderInfo:(MessageBodyType)fileCategory Name:(NSString*)name Text:(NSString*)text Image:(UIImage*)img
 {
 
-    [self addMsgDataWithName:self.HuanXinUserName Content:self.MessageTextField.text IsLocal:YES FileCategory:fileCategory];
-
+[self addMsgDataWithName:name ContentText:text ContentImg:img IsLocal:YES FileCategory:fileCategory];
    
 }
 
 //添加接受信息
 -(void)addReceiverInfo:(EMMessage *)message
 {
-
     id<IEMMessageBody> messagebody=[message.messageBodies lastObject];//由于只传一个messagebody对象
     
-    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Text) {
-        [self addMsgDataWithName:message.from Content:((EMTextMessageBody *)messagebody).text IsLocal:NO FileCategory:eMessageBodyType_Text];
+    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Text)//接受文件是文字
+    {
+        [self addMsgDataWithName:message.from ContentText:((EMTextMessageBody *)messagebody).text ContentImg:(UIImage*)[NSNull null] IsLocal:NO FileCategory:eMessageBodyType_Text];
     }
-    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image) {
-        [self addMsgDataWithName:message.from Content:((EMImageMessageBody *)messagebody).thumbnailLocalPath IsLocal:NO FileCategory:eMessageBodyType_Image];
+    if (((EMTextMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image)//接受文件是图片
+    {
+            NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
+            [self addMsgDataWithName:message.from ContentText:(NSString*)[NSNull null] ContentImg:[UIImage imageWithContentsOfFile:((EMImageMessageBody *)messagebody).thumbnailLocalPath] IsLocal:NO FileCategory:eMessageBodyType_Image];
     }
     
 }
@@ -280,6 +312,8 @@
     
     NSDictionary *dict = [self.resultArray objectAtIndex:indexPath.row];
     
+    
+    NSLog(@"ddddead%@",[dict objectForKey:@"isLocal"]);
     //创建头像
     UIImageView *photo ;
     if ([[dict objectForKey:@"isLocal"] isEqualToNumber:[[NSNumber alloc]initWithBool:YES]]) {
