@@ -12,7 +12,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface MessageViewController ()<UIAlertViewDelegate,IChatManagerDelegate,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>//登录对话框响应  从相册选择图片
+@interface MessageViewController ()<UIAlertViewDelegate,IChatManagerDelegate,EMChatManagerDelegateBase,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>//登录对话框响应  从相册选择图片
 
 {
     AVAudioRecorder *recorder;
@@ -179,6 +179,20 @@
    
 }
 
+
+
+-(void)didMessageAttachmentsStatusChanged:(EMMessage *)message error:(EMError *)error
+{
+    id<IEMMessageBody> messagebody=[message.messageBodies lastObject];
+    EMImageMessageBody *imageBody=(EMImageMessageBody *)messagebody;
+    if ([imageBody thumbnailDownloadStatus]==EMAttachmentDownloadSuccessed)//回调下载进度，完成插入队列
+    {
+        [self addMsgDataWithName:message.from ContentText:(NSString*)[NSNull null] ContentImg:[UIImage imageWithContentsOfFile:((EMImageMessageBody *)messagebody).thumbnailLocalPath] IsLocal:NO FileCategory:eMessageBodyType_Image];
+        [self updateHuanXinChatView];//更新对话框
+
+    }
+}
+
 //添加接受信息
 -(void)addReceiverInfo:(EMMessage *)message
 {
@@ -191,8 +205,7 @@
     if (((EMImageMessageBody *)messagebody).messageBodyType==eMessageBodyType_Image)//接受文件是图片
     {
         {
-            //[NSThread sleepForTimeInterval:30];
-           // NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
+           NSLog(@"%@",((EMImageMessageBody *)messagebody).thumbnailLocalPath);
            //[self addMsgDataWithName:message.from ContentText:(NSString*)[NSNull null] ContentImg:[UIImage imageWithContentsOfFile:((EMImageMessageBody *)messagebody).thumbnailLocalPath] IsLocal:NO FileCategory:eMessageBodyType_Image];
     }
     
@@ -332,13 +345,12 @@
     //创建头像
     UIImageView *photo ;
     if ([[dict objectForKey:@"isLocal"] isEqualToNumber:[[NSNumber alloc]initWithBool:YES]]) {
-        photo = [[UIImageView alloc]initWithFrame:CGRectMake(320-60, 10, 50, 50)];
+        photo = [[UIImageView alloc]initWithFrame:CGRectMake(320-30, 10, 50, 50)];
         [cell addSubview:photo];
         photo.image = [UIImage imageNamed:@"photo1"];
         
         if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Text]])
         {
-          NSLog(@"TXT TXT TXT");
            if ([[dict objectForKey:@"content"]length]==0) {
             //[cell addSubview:[self yuyinView:1 from:YES withIndexRow:indexPath.row withPosition:65]];
               NSLog(@"字符串为空");
@@ -350,8 +362,7 @@
         }
         else if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Image]])
         {
-            NSLog(@"IMG IMG IMG");
-            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(320-160, 10, 150, 100)];
+            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(320-200, 10, 150, 100)];
             [imageView setImage:[dict objectForKey:@"img"]];
             [cell addSubview:imageView];
         }
@@ -365,7 +376,6 @@
         
         if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Text]])
         {
-            NSLog(@"TXT TXT TXT");
             if ([[dict objectForKey:@"content"]length]==0) {
                 //[cell addSubview:[self yuyinView:1 from:YES withIndexRow:indexPath.row withPosition:65]];
                 NSLog(@"字符串为空");
@@ -377,7 +387,6 @@
         }
         else if ([[dict objectForKey:@"fileCategory"] isEqualToNumber:[[NSNumber alloc]initWithLong:eMessageBodyType_Image]])
         {
-            NSLog(@"IMG IMG IMG");
             UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(80, 10, 150, 100)];
             [imageView setImage:[dict objectForKey:@"img"]];
             [cell addSubview:imageView];
