@@ -213,44 +213,9 @@
                     <view key="view" contentMode="scaleToFill" id="uGR-wi-xBO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AxF-3v-F4x">
-                                <rect key="frame" x="119" y="126" width="87" height="30"/>
-                                <state key="normal" title="select image">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectPhoto:" destination="0wu-lf-yfH" eventType="touchUpInside" id="bat-m8-yLQ"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRB-JY-Jdt">
-                                <rect key="frame" x="48" y="228" width="240" height="128"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5VW-mZ-8gc">
-                                <rect key="frame" x="119" y="74" width="87" height="30"/>
-                                <state key="normal" title="save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveImage:" destination="0wu-lf-yfH" eventType="touchUpInside" id="Zhl-Ek-GQO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONu-M5-LAv">
-                                <rect key="frame" x="145" y="36" width="30" height="30"/>
-                                <state key="normal" title="load">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="loadImg:" destination="0wu-lf-yfH" eventType="touchUpInside" id="vEo-pJ-hVN"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="imageView" destination="BRB-JY-Jdt" id="1sH-Hn-suU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zgo-r4-IN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

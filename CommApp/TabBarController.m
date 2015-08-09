@@ -24,10 +24,15 @@
 @synthesize isTabBarCenterBtnPopViewDisplay=_isTabBarCenterBtnPopViewDisplay;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self initialize];
-    [self changeTabBarViewApperance];
-    [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood_selected.png"] target:self action:@selector(tabBarCenterBtnPressed:)];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self initialize];});
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [super viewDidLoad];
+        [self changeTabBarViewApperance];
+        [self addCenterButtonWithImage:[UIImage imageNamed:@"hood.png"] highlightImage:[UIImage imageNamed:@"hood_selected.png"] target:self action:@selector(tabBarCenterBtnPressed:)];
+    });
+    
 }
 
 - (void)didReceiveMemoryWarning {

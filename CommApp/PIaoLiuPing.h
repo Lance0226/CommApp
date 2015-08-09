@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PiaoLiuPing : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (retain, nonatomic) IBOutlet UIImageView *imageView;
+@interface PiaoLiuPing : UIViewController
 
 @end

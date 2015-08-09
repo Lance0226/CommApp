@@ -27,11 +27,16 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    [self initialize];
-    [self addNavigationBar];
-    [self addTextField];
-    [self addInputZone];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self initialize];});
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [super viewDidLoad];
+        [self addNavigationBar];
+        [self addTextField];
+        [self addInputZone];
+    });
+   
     
 }
 

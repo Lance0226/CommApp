@@ -37,12 +37,15 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self addNavitionBar];
-    [self Initialize];
-    //[self addRect];
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      [self Initialize];
+      [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
+    });
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [super viewDidLoad];
+      [self addNavitionBar];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
