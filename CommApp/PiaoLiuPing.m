@@ -7,7 +7,12 @@
 //
 
 #import "PIaoLiuPing.h"
+#import "EaseMob.h"
 
+@interface PiaoLiuPing()
+
+
+@end
 
 @implementation PiaoLiuPing
 
